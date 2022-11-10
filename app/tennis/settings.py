@@ -40,8 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_yasg',
+    'corsheaders',
     'django_filters',
     'rest_framework',
+    'rest_framework.authtoken',
     'first_app',
     'account',
     ]
@@ -49,6 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -155,4 +159,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'account.User'
-LOGIN_REDIRECT_URL = 'auth/<int:pk>/'
+LOGIN_URL='/auth/login/'
+LOGIN_REDIRECT_URL = '/auth/profile'
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:3000",
+]
