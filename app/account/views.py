@@ -1,72 +1,57 @@
 from django.shortcuts import render
-from .serializers import RegisterSerializer, ListUserSerializer, UpdateUserSerializer, ChangePasswordSerializer, MyTokenObtainPairSerializer, AdminCreateSerializer
+from .serializers import PlayerCreateSerializer, PlayerSerializer, UserCreateSerializer, ChangePasswordSerializer, MyTokenObtainPairSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, DestroyAPIView, RetrieveAPIView
-from .models import User
+from rest_framework import generics
+from .models import User, Player, AdminUser
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+from rest_framework.generics import CreateAPIView
+from rest_framework.viewsets import ModelViewSet
+from rest_framework import authentication, permissions
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
 
-
-
-class AdminCreateAPIView(CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = AdminCreateSerializer
-    permission_classes = [AllowAny, ]
-    authentication_classes = [TokenAuthentication, SessionAuthentication]
-
-
-    # def perform_create(self, serializer):
-    #     serializer.validated_data['is_staff'] = True
-    #     serializer.validated_data['is_superuser'] = True
-    #     serializer.save()
-    
 
 class MyObtainTokenPairView(TokenObtainPairView):
     permission_classes = (AllowAny,)
     serializer_class = MyTokenObtainPairSerializer
 
 
-class RegisterView(CreateAPIView):
+class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
-    serializer_class = RegisterSerializer
+    serializer_class = PlayerCreateSerializer
+
+    def perform_create(self, serializer):
+        serializer.validated_data['is_staff'] = False
+        serializer.validated_data['is_superuser'] = False
+        serializer.save() 
     
 
-
-class ChangePasswordView(UpdateAPIView):
+class AdminUserCreateAPIView(CreateAPIView):
     queryset = User.objects.all()
+    serializer_class = UserCreateSerializer
+
+    def perform_create(self, serializer):
+        serializer.validated_data['is_staff'] = True
+        serializer.validated_data['is_superuser'] = True
+        serializer.save()
+
+
+class ChangePasswordView(generics.UpdateAPIView):
+    queryset = Player.objects.all()
     permission_classes = (IsAuthenticated,)
     serializer_class = ChangePasswordSerializer
 
 
-class UpdateProfileView(UpdateAPIView):
-    queryset = User.objects.all()
-    permission_classes = (IsAuthenticated,)
-    serializer_class = UpdateUserSerializer
-
-class ListProfileView(ListAPIView):
-    queryset = User.objects.all()
-    permission_classes = (IsAdminUser,)
-    serializer_class = ListUserSerializer
-
-class RetrieveProfileView(RetrieveAPIView):
-    queryset = User.objects.all()
-    permission_classes = (AllowAny, )
-    serializer_class = ListUserSerializer
-
-    def get_object(self):
-        return self.request.user
-
-class DestroyProfileView(DestroyAPIView):
-    queryset = User.objects.all()
-    permission_classes = (IsAdminUser, IsAuthenticated,)
-    serializer_class = ListUserSerializer
+class UserProfile(ModelViewSet):
+    queryset = Player.objects.all()
+    serializer_class = PlayerSerializer
+    http_method_names = ['get', 'put', 'delete', ]
+    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
 
     def get_object(self):
         return self.request.user
