@@ -102,7 +102,7 @@ class GalleryImagesViewSet(ModelViewSet):
 class GlobalSearchList(ListAPIView):
     serializer_class = GlobalSearchSerializer
 
-    def get_queryset(self):
+    def list(self, request, *args, **kwargs):
         search = self.request.query_params.get('query', None)
         category = Category.objects.filter(Q(title__icontains=search) | Q(text__icontains=search))
         club = Club.objects.filter(Q(name__icontains=search) | Q(description__icontains=search) | Q(address__icontains=search) | Q(contacts__icontains=search) | Q(working_hours__icontains=search) | Q(Instagram__icontains=search) | Q(Facebook__icontains=search) | Q(images__icontains=search))
@@ -114,7 +114,6 @@ class GlobalSearchList(ListAPIView):
         mainpage = MainPage.objects.filter(Q(main_photo__icontains=search) | Q(whatsapp__icontains=search) | Q(facebook__icontains=search) | Q(instagram__icontains=search))
         all_results = list(chain(category, club, trainer, calendar, rating, news, gallery, mainpage))
         serialize_obj = serializers.serialize('json', all_results)
-        print(serialize_obj)
         return JsonResponse(json.loads(serialize_obj), safe=False)
 
 
