@@ -40,6 +40,7 @@ class NewsSerializer(serializers.ModelSerializer):
 class NewsImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewsImages
+        fields = "__all__"
 
 
 class GallerySerializer(serializers.ModelSerializer):
