@@ -1,10 +1,7 @@
 from django.urls import path, include
 from .views import RegisterView, ChangePasswordView, LogoutView, LogoutAllView, UserProfile, AdminUserCreateAPIView
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
-from rest_framework.routers import DefaultRouter
 
-router = DefaultRouter()
-router.register(r'profile', UserProfile, basename="profile")
 
 urlpatterns = [
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -14,6 +11,6 @@ urlpatterns = [
     path('change_password/<int:pk>/', ChangePasswordView.as_view(), name='auth_change_password'),
     path('logout/', LogoutView.as_view(), name='auth_logout'),
     path('logout_all/', LogoutAllView.as_view(), name='auth_logout_all'),
-    path('', include(router.urls)),
+    path('profile/<int:pk>/', UserProfile.as_view(), name='profile'),
 
 ]

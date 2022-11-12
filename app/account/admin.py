@@ -8,7 +8,7 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class PlayerAdmin(admin.ModelAdmin):
-    list_display = ('user', 'city', 'birthdate', 'gender', 'phone_number')
+    list_display = ('user', 'id',  'city', 'birthdate', 'gender', 'phone_number')
 
 
 class AdminUserAdmin(admin.ModelAdmin):

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .serializers import PlayerCreateSerializer, PlayerSerializer, UserCreateSerializer, ChangePasswordSerializer, MyTokenObtainPairSerializer
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework import generics
 from .models import User, Player, AdminUser
 from rest_framework.views import APIView
@@ -13,6 +13,8 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import authentication, permissions
 from rest_framework_simplejwt.views import TokenObtainPairView
+from django.shortcuts import get_object_or_404
+# from .permissions import IsOwner
 
 
 class MyObtainTokenPairView(TokenObtainPairView):
@@ -47,14 +49,14 @@ class ChangePasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
 
 
-class UserProfile(ModelViewSet):
+class UserProfile(generics.RetrieveUpdateDestroyAPIView):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
-    http_method_names = ['get', 'put', 'delete', ]
     authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+    permission_classes = (IsAuthenticated,)
 
     def get_object(self):
-        return self.request.user
+        return self.queryset.get(pk=self.request.user.player.id)
 
 
 class LogoutView(APIView):
