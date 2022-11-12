@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 from datetime import timedelta
+# import environ
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,7 +30,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", default=0)
 
-ALLOWED_HOSTS = ['127.0.0.1',] if not os.environ.get('ALLOWED_HOSTS') else os.environ.get('ALLOWED_HOSTS').split(',')
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
 
 # Application definition
 
@@ -97,6 +98,7 @@ SIMPLE_JWT = {
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }       
+
 DATABASES = {
     "default": {
         "ENGINE": os.environ.get("SQL_ENGINE"),
@@ -107,6 +109,29 @@ DATABASES = {
         "PORT": os.environ.get("SQL_PORT"),
     }
 }
+# if AWS_SERVER:
+#     env = environ.Env()
+#     environ.Env.read_env(os.path.join(BASE_DIR, '.env.dev'))
+#     SECRET_KEY = env('SECRET_KEY')
+#     DEBUG = env.bool('DEBUG', default=False)
+#     ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+#     DATABASES = {
+#         'default': {'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': env("DB_NAME"),
+#             'USER': env("DB_USER"),
+#             'PASSWORD': env("DB_PASSWORD"),
+#             'HOST': 'localhost',} 
+#             }
+# else:
+#     SECRET_KEY = 'SECRET_KEY'
+#     DEBUG = True
+#     ALLOWED_HOSTS = ['127.0.0.1', 'localhost', ]
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
 
 
 # Password validation
