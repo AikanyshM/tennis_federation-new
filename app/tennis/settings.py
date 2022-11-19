@@ -199,6 +199,10 @@ LOGIN_URL='/auth/login/'
 LOGIN_REDIRECT_URL = '/auth/profile'
 
 
+# CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS').split(',')
+
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
+    "http://localhost:3000",
+    "http://test.cm.kg",
 ]
