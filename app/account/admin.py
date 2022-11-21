@@ -4,7 +4,7 @@ from .models import User, Player, AdminUser
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'first_name', 'last_name')
+    list_display = ('username', 'id', 'email', 'first_name', 'last_name')
 
 
 class PlayerAdmin(admin.ModelAdmin):

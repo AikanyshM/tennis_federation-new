@@ -22,7 +22,8 @@ class Category(models.Model):
 class Club(models.Model):
     name = models.CharField(max_length=100, verbose_name = _("Название клуба"))
     description = models.CharField(max_length=255, verbose_name = _("Описание клуба"))
-    address =   models.URLField(verbose_name = _("Адрес клуба"))
+    address = models.CharField(max_length=100, verbose_name = _("Адрес клуба"))
+    address_link=   models.URLField(verbose_name = _("Ссылка на адрес клуба"))
     contacts = models.CharField(max_length=100, verbose_name = _("Контакты"))
     working_hours = models.CharField(max_length=100, verbose_name = _("Часы работы"))
     Instagram = models.URLField(verbose_name= _("Instagram"))
@@ -48,7 +49,8 @@ class Trainer(models.Model):
 
 class Calendar(models.Model):
     name = models.CharField(max_length=100, verbose_name= _('Название турнира'))
-    date = models.DateField(verbose_name= _('Дата'))
+    begin_date = models.DateField(verbose_name= _('Начало турнира'))
+    end_date = models.DateField(verbose_name= _('Конец турнира'))
     location = models.CharField(max_length=100, verbose_name= _('Город'))
     gender = (
         ('male', 'Мужчины'),
@@ -115,7 +117,7 @@ class GalleryImages(models.Model):
 
 class MainPage(models.Model):
     main_photo = models.ImageField(upload_to ='main_page_image', verbose_name= _('Главное фото'))
-    whatsapp = models.URLField()
+    whatsapp = models.BigIntegerField()
     facebook = models.URLField()
     instagram = models.URLField()
 
