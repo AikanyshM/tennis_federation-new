@@ -30,7 +30,7 @@ class Club(TranslatableModel):
         name = models.CharField(max_length=100, verbose_name = _("Название клуба")),
         description = models.CharField(max_length=255, verbose_name = _("Описание клуба")),
         address =   models.URLField(verbose_name = _("Адрес клуба")),
-        address_link =   models.URLField(verbose_name = _("Ссылка на адрес клуба"),
+        address_link =   models.URLField(verbose_name = _("Ссылка на адрес клуба")),
         contacts = models.CharField(max_length=100, verbose_name = _("Контакты")),
         working_hours = models.CharField(max_length=100, verbose_name = _("Часы работы"))
     )
