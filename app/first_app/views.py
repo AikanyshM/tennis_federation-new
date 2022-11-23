@@ -87,6 +87,8 @@ class NewsViewSet(ModelViewSet):
 class GalleryViewSet(ModelViewSet):
     queryset = Gallery.objects.all()
     serializer_class = GallerySerializer
+    filter_backends = [filters.OrderingFilter,]
+    ordering_fields = ['date_added', ]
     permission_classes = [IsStaffOrAny,]
 
 
