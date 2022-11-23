@@ -21,9 +21,7 @@ from django.core import serializers
 class CategoryModelViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    authentication_classes = [SessionAuthentication, ]
     permission_classes = [IsStaffOrAny, ]
-
 
 
 #About Tennis Clubs
@@ -31,7 +29,6 @@ class CategoryModelViewSet(ModelViewSet):
 class ClubModelViewSet(ModelViewSet):
     queryset = Club.objects.all()
     serializer_class = ClubSerializer
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication, ]
     permission_classes = [IsStaffOrAny, ]
 
 
@@ -40,26 +37,27 @@ class ClubModelViewSet(ModelViewSet):
 class TrainerModelViewSet(ModelViewSet):
     queryset = Trainer.objects.all()
     serializer_class = TrainerSerializer
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication, ]
     permission_classes = [IsStaffOrAny, ]
 
 
 class CalendarFilter(FilterSet):
-    month = NumberFilter(field_name='date', lookup_expr='month')
-    year = NumberFilter(field_name='date', lookup_expr='year')
+    start_month = NumberFilter(field_name='start_date', lookup_expr='month')
+    start_year = NumberFilter(field_name='start_date', lookup_expr='year')
+    end_month = NumberFilter(field_name='end_date', lookup_expr='month')
+    end_year = NumberFilter(field_name='end_date', lookup_expr='year')
 
     class Meta:
         model = Calendar
-        fields = ['category_gender', 'category_age', 'month', 'year']
+        fields = ['translations__category_gender', 'translations__category_age', 'start_month', 'start_year', 'end_month', 'end_year']
 
 
 class CalendarViewSet(ModelViewSet):
     queryset = Calendar.objects.all()
     serializer_class = CalendarSerializer
-    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter,]
     filterset_class = CalendarFilter
     search_fields = ('name',)
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+    ordering_fields = ['start_date', ]
     permission_classes = [IsStaffOrAny,]
 
 
@@ -67,35 +65,40 @@ class RatingViewSet(ModelViewSet):
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['category_gender', 'category_age']
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+    filterset_fields = ['translations__category_gender', 'translations__category_age']
     permission_classes = [IsStaffOrAny,]
+
+    # def player_rank(self):
+    #     sorted_list = sorted(self.queryset.points)
+    #     for index, score in enumerate(sorted_list):
+    #         if index >= 0: 
+    #             index += 1
+    #         self.queryset.rating = sorted_list[index]
+    #         return self.queryset.rating
 
 
 class NewsViewSet(ModelViewSet):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+    filter_backends = [filters.OrderingFilter,]
+    ordering_fields = ['date', ]
     permission_classes = [IsStaffOrAny,]
     
 class GalleryViewSet(ModelViewSet):
     queryset = Gallery.objects.all()
     serializer_class = GallerySerializer
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
     permission_classes = [IsStaffOrAny,]
 
 
 class NewsImagesViewSet(ModelViewSet):
     queryset = NewsImages.objects.all()
     serializer_class = NewsImagesSerializer
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
     permission_classes = [IsStaffOrAny,]
 
 
 class GalleryImagesViewSet(ModelViewSet):
     queryset = GalleryImages.objects.all()
     serializer_class = GalleryImagesSerializer
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
     permission_classes = [IsStaffOrAny,]
 
 
@@ -120,5 +123,4 @@ class GlobalSearchList(ListAPIView):
 class MainPageViewSet(ModelViewSet):
     queryset = MainPage.objects.all()
     serializer_class = MainPageSerializer
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
     permission_classes = [IsStaffOrAny,]

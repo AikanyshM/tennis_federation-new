@@ -28,12 +28,20 @@ class UserCreateSerializer(serializers.ModelSerializer):
         user.save()
 
 
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ["email", "first_name", "last_name"]
+        read_only_fields = ['username',]
+
+
 class PlayerSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
     class Meta:
         model = Player
         fields = "__all__"
-        read_only_fields = ['user', ]
-
 
 
 class PlayerCreateSerializer(UserCreateSerializer):

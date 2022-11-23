@@ -1,20 +1,21 @@
 from django.contrib import admin
 from .models import Calendar, Category, Club, Rating, Trainer, News, NewsImages, Gallery, GalleryImages
+from parler.admin import TranslatableAdmin
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslatableAdmin):
     list_display = ('title', 'text')
 
-class ClubAdmin(admin.ModelAdmin):
+class ClubAdmin(TranslatableAdmin):
     list_display = ('name', 'description', 'address', 'contacts', 'working_hours', 'images')
     
-class TrainerAdmin(admin.ModelAdmin):
+class TrainerAdmin(TranslatableAdmin):
     list_display = ('name', 'description', 'address', 'contacts', 'images')
 
-class GalleryAdmin(admin.ModelAdmin):
+class GalleryAdmin(TranslatableAdmin):
     list_display = ('main_image', 'date_added', 'title')
 
-class GalleryImagesAdmin(admin.ModelAdmin):
+class GalleryImagesAdmin(TranslatableAdmin):
     list_display = ('gallery_id', 'images')
 
 
@@ -25,17 +26,17 @@ admin.site.register(Gallery, GalleryAdmin)
 admin.site.register(GalleryImages, GalleryImagesAdmin)
 
 
-class CalendarAdmin(admin.ModelAdmin):
-    list_display = ('name', 'date')
+class CalendarAdmin(TranslatableAdmin):
+    list_display = ('name', 'start_date', 'end_date')
 
-class RatingAdmin(admin.ModelAdmin):
-    list_display = ('number', 'full_name', 'points')
+class RatingAdmin(TranslatableAdmin):
+    list_display = ('rating', 'full_name', 'points')
     
-class NewsAdmin(admin.ModelAdmin):
+class NewsAdmin(TranslatableAdmin):
     list_display = ('name', 'date')
 
 
-class NewsImageAdmin(admin.ModelAdmin):
+class NewsImageAdmin(TranslatableAdmin):
     list_display = ('news_id', 'photo')
 
 
