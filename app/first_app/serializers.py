@@ -1,61 +1,64 @@
 from rest_framework import serializers
+from parler_rest.serializers import TranslatableModelSerializer, TranslatedFieldsField
 from .models import *
 
-class CategorySerializer(serializers.ModelSerializer):
+
+class CategorySerializer(TranslatableModelSerializer):
     class Meta:
         model = Category
         fields = "__all__"
 
 
-class ClubSerializer(serializers.ModelSerializer):
+class ClubSerializer(TranslatableModelSerializer):
     class Meta:
         model = Club
         fields = "__all__"
 
 
-class TrainerSerializer(serializers.ModelSerializer):
+class TrainerSerializer(TranslatableModelSerializer):
     class Meta:
         model = Trainer
         fields = "__all__"
 
 
-class CalendarSerializer(serializers.ModelSerializer):
+class CalendarSerializer(TranslatableModelSerializer):
     class Meta:
         model = Calendar
         fields = "__all__"
 
 
-class RatingSerializer(serializers.ModelSerializer):
+class RatingSerializer(TranslatableModelSerializer):
     class Meta:
         model = Rating
         fields = "__all__"
+        read_only_fields = ('rating', )
 
 
-class NewsSerializer(serializers.ModelSerializer):
+class NewsSerializer(TranslatableModelSerializer):
     class Meta:
         model = News
         fields = "__all__"
 
 
-class NewsImagesSerializer(serializers.ModelSerializer):
+class NewsImagesSerializer(TranslatableModelSerializer):
     class Meta:
         model = NewsImages
         fields = "__all__"
 
 
-class GallerySerializer(serializers.ModelSerializer):
+class GallerySerializer(TranslatableModelSerializer):
     class Meta:
         model = Gallery
         fields = "__all__"
 
 
-class GalleryImagesSerializer(serializers.ModelSerializer):
+class GalleryImagesSerializer(TranslatableModelSerializer):
     class Meta:
         model = GalleryImages
         fields = "__all__"
 
 
-class MainPageSerializer(serializers.ModelSerializer):
+class MainPageSerializer(TranslatableModelSerializer):
     class Meta:
         model = MainPage
         fields = "__all__"

@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'first_app',
     'account',
+    'rosetta', 
+    'parler', 
     ]
 
 MIDDLEWARE = [
@@ -149,6 +151,18 @@ LOCALE_PATHS = [
 ]
 
 LANGUAGE_CODE = 'en-us'
+
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'en',}, # English
+        {'code': 'ru',}, # Russian
+        {'code': 'ky',}, # Kirghiz
+    ),
+    'default': {
+        'fallbacks': ['en'],
+        'hide_untranslated': False,
+    }
+}
 
 TIME_ZONE = 'UTC'
 

@@ -16,7 +16,7 @@ class Player(models.Model):
         ('female', 'Женский')
     )   
     gender = models.CharField(choices=gender_choice,max_length=100, verbose_name=_('Пол'))
-    phone_number = models.IntegerField(verbose_name= _('Номер телефона'))
+    phone_number = models.BigIntegerField(verbose_name= _('Номер телефона'))
 
     def __str__(self):
         return self.user.first_name

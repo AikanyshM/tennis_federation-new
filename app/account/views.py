@@ -52,7 +52,6 @@ class ChangePasswordView(generics.UpdateAPIView):
 class UserProfile(generics.RetrieveUpdateDestroyAPIView):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
     permission_classes = (IsAuthenticated,)
 
     def get_object(self):
