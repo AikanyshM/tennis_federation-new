@@ -89,7 +89,7 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
             raise serializers.ValidationError({"password": "Пароли не совпадают"})
-
+        
         return attrs
 
     def validate_old_password(self, value):
