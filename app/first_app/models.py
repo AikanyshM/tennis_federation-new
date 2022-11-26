@@ -33,7 +33,7 @@ class Club(TranslatableModel):
         address_link =   models.URLField(verbose_name = _("Ссылка на адрес клуба")),
         contacts = models.CharField(max_length=100, verbose_name = _("Контакты")),
         working_hours = models.CharField(max_length=100, verbose_name = _("Часы работы"))
-    )
+        )
 
     def __str__(self):
         return self.translations.name
