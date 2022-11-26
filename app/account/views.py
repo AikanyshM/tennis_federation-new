@@ -8,13 +8,11 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.generics import CreateAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import authentication, permissions
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.shortcuts import get_object_or_404
-# from .permissions import IsOwner
 
 
 class MyObtainTokenPairView(TokenObtainPairView):
