@@ -48,7 +48,7 @@ class PlayerCreateSerializer(UserCreateSerializer):
 
     class Meta:
         model = User
-        fields = ["player", "username", "password", "password2"]
+        fields = ["player", "username", "password", "password2", 'email', 'first_name', 'last_name']
         extra_kwargs = {
             'email': {'required': True},
             'first_name': {'required': True},
