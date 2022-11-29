@@ -112,14 +112,3 @@ class GlobalSearchSerializer(serializers.Serializer):
         else:
             raise Exception("Not found in any instance!")
         return serializer.data
-
-
-
-# def save(points):
-#     rating = []
-#     sorted_list = sorted(points)
-#     for index, score in enumerate(sorted_list):
-#         if index >= 0: 
-#             index += 1
-#             rating.append(index)
-#     return sorted_list, rating
