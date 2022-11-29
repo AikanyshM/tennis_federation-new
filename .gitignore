@@ -1,4 +1,5 @@
 venv/
 docker-compose.prod.yml/
-
+app/account/migrations/
+app/account/venv/
 

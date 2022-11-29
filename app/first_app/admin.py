@@ -12,18 +12,19 @@ class ClubAdmin(TranslatableAdmin):
 class TrainerAdmin(TranslatableAdmin):
     list_display = ('name', 'description', 'address', 'contacts', 'images')
 
-class GalleryAdmin(TranslatableAdmin):
-    list_display = ('main_image', 'date_added', 'title')
+class GalleryImagesAdminInline(admin.TabularInline):
+    extra = 1
+    model = GalleryImages
 
-class GalleryImagesAdmin(TranslatableAdmin):
-    list_display = ('gallery_id', 'images')
+
+@admin.register(Gallery)
+class GalleryAdmin(TranslatableAdmin):
+    inlines = [GalleryImagesAdminInline, ]
 
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Club, ClubAdmin)
 admin.site.register(Trainer, TrainerAdmin)
-admin.site.register(Gallery, GalleryAdmin)
-admin.site.register(GalleryImages, GalleryImagesAdmin)
 
 
 class CalendarAdmin(TranslatableAdmin):
