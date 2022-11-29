@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import PlayerCreateSerializer, PlayerSerializer, UpdateUserSerializer, UserCreateSerializer, ChangePasswordSerializer, MyTokenObtainPairSerializer
+from .serializers import PlayerCreateSerializer, PlayerSerializer, UserCreateSerializer, ChangePasswordSerializer, MyTokenObtainPairSerializer, PlayerProfileSerializer, UpdateUserSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework import generics
 from .models import User, Player, AdminUser
@@ -28,7 +28,7 @@ class RegisterView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.validated_data['is_staff'] = False
         serializer.validated_data['is_superuser'] = False
-        serializer.save() 
+        serializer.save()
     
 
 class AdminUserCreateAPIView(CreateAPIView):
@@ -49,7 +49,7 @@ class ChangePasswordView(generics.UpdateAPIView):
 
 class UserProfile(generics.RetrieveUpdateDestroyAPIView):
     queryset = Player.objects.all()
-    serializer_class = PlayerSerializer
+    serializer_class = PlayerProfileSerializer
     permission_classes = (IsAuthenticated,)
 
     def get_object(self):

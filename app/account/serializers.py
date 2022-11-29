@@ -36,11 +36,17 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ['username',]
 
 
-class PlayerSerializer(serializers.ModelSerializer):    
+class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
         fields = "__all__"
-        read_only_fields = ['user', ]  
+
+
+class PlayerProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    class Meta:
+        model = Player
+        fields = "__all__"
 
 
 class PlayerCreateSerializer(UserCreateSerializer):
@@ -48,12 +54,13 @@ class PlayerCreateSerializer(UserCreateSerializer):
 
     class Meta:
         model = User
-        fields = ["player", "username", "password", "password2", 'email', 'first_name', 'last_name']
+        fields = ['player', 'username', 'password', 'password2', 'email', 'first_name', 'last_name']
         extra_kwargs = {
             'email': {'required': True},
             'first_name': {'required': True},
             'last_name': {'required': True}
         }
+        read_only_fields = ['user', ]
 
     def save(self):
         user = User(username=self.validated_data['username'],

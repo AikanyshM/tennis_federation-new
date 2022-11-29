@@ -56,7 +56,7 @@ class CalendarViewSet(ModelViewSet):
     serializer_class = CalendarSerializer
     filter_backends = [filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter,]
     filterset_class = CalendarFilter
-    search_fields = ('name',)
+    search_fields = ('translations__name',)
     ordering_fields = ['start_date', ]
     permission_classes = [IsStaffOrAny,]
 
@@ -67,14 +67,6 @@ class RatingViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['translations__category_gender', 'translations__category_age']
     permission_classes = [IsStaffOrAny,]
-
-    # def player_rank(self):
-    #     sorted_list = sorted(self.queryset.points)
-    #     for index, score in enumerate(sorted_list):
-    #         if index >= 0: 
-    #             index += 1
-    #         self.queryset.rating = sorted_list[index]
-    #         return self.queryset.rating
 
 
 class NewsViewSet(ModelViewSet):
