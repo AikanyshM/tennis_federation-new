@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Calendar, Category, Club, Rating, Trainer, News, NewsImages, Gallery, GalleryImages
-from parler.admin import TranslatableAdmin
+from parler.admin import TranslatableTabularInline, TranslatableAdmin, TranslatableInlineModelAdmin
 
 
 class CategoryAdmin(TranslatableAdmin):
@@ -30,17 +30,15 @@ class CalendarAdmin(TranslatableAdmin):
     list_display = ('name', 'start_date', 'end_date')
 
 class RatingAdmin(TranslatableAdmin):
-    list_display = ('rating', 'full_name', 'points')
-    
+    list_display = ('full_name', 'points')
+
+class NewsImageAdmin(TranslatableInlineModelAdmin):
+    model = NewsImages
+
+@admin.register(News)
 class NewsAdmin(TranslatableAdmin):
-    list_display = ('name', 'date')
-
-
-class NewsImageAdmin(TranslatableAdmin):
-    list_display = ('news_id', 'photo')
+    inlines = [NewsImageAdmin, ]
 
 
 admin.site.register(Calendar, CalendarAdmin)
 admin.site.register(Rating, RatingAdmin)
-admin.site.register(News, NewsAdmin)
-admin.site.register(NewsImages, NewsImageAdmin)
