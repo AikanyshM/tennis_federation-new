@@ -32,12 +32,13 @@ class CalendarAdmin(TranslatableAdmin):
 class RatingAdmin(TranslatableAdmin):
     list_display = ('full_name', 'points')
 
-class NewsImageAdmin(TranslatableInlineModelAdmin):
+class NewsImageAdminInline(admin.TabularInline):
+    extra = 1
     model = NewsImages
 
 @admin.register(News)
 class NewsAdmin(TranslatableAdmin):
-    inlines = [NewsImageAdmin, ]
+    inlines = [NewsImageAdminInline, ]
 
 
 admin.site.register(Calendar, CalendarAdmin)
