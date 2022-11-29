@@ -1,64 +1,87 @@
 from rest_framework import serializers
 from parler_rest.serializers import TranslatableModelSerializer, TranslatedFieldsField
+from .mixins import TranslatedSerializerMixin
 from .models import *
 
 
-class CategorySerializer(TranslatableModelSerializer):
+class CategorySerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=Category)
+
     class Meta:
         model = Category
-        fields = "__all__"
+        fields = ['translations', ]
 
 
-class ClubSerializer(TranslatableModelSerializer):
+class ClubSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=Club)
+
     class Meta:
         model = Club
-        fields = "__all__"
+        fields = ['translations', 'address_link', 'instagram', 'facebook', 'images',  ] 
 
 
-class TrainerSerializer(TranslatableModelSerializer):
+class TrainerSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=Trainer)
+
     class Meta:
         model = Trainer
-        fields = "__all__"
+        fields = ['translations', 'images', ]
 
 
-class CalendarSerializer(TranslatableModelSerializer):
+class CalendarSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=Calendar)
+
     class Meta:
         model = Calendar
-        fields = "__all__"
+        fields = ['translations', 'start_date', 'end_date', ]
 
 
-class RatingSerializer(TranslatableModelSerializer):
+class RatingSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=Rating)
+    rating = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Rating
-        fields = "__all__"
+        fields = ['translations', 'rating', 'birth_date', 'number_of_tournaments', 'points', ]
         read_only_fields = ('rating', )
 
+    def get_rating(self, instance):
+        all_ratings = Rating.objects.all().order_by('-points').values('id', 'points')
+        for index, item in enumerate(all_ratings):
+            if item['id'] == instance.id:
+                return index + 1
 
-class NewsSerializer(TranslatableModelSerializer):
-    class Meta:
-        model = News
-        fields = "__all__"
 
-
-class NewsImagesSerializer(TranslatableModelSerializer):
+class NewsImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewsImages
-        fields = "__all__"
+        fields = ['news_id', 'photo', ]
+        
 
+class NewsSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=News)
 
-class GallerySerializer(TranslatableModelSerializer):
     class Meta:
-        model = Gallery
-        fields = "__all__"
+        model = News
+        fields = ['translations', 'date', 'main_photo', ]
 
 
-class GalleryImagesSerializer(TranslatableModelSerializer):
+class GalleryImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = GalleryImages
-        fields = "__all__"
+        fields = ['gallery_id', 'images', ]
 
 
-class MainPageSerializer(TranslatableModelSerializer):
+class GallerySerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=Gallery)
+
+    class Meta:
+        model = Gallery
+        fields = ['translations', 'main_image', 'date_added', ]
+
+
+class MainPageSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = MainPage
         fields = "__all__"
