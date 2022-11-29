@@ -52,6 +52,12 @@ class RatingSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
                 return index + 1
 
 
+class NewsImagesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewsImages
+        fields = ['news_id', 'photo', ]
+        
+
 class NewsSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=News)
 
@@ -60,25 +66,18 @@ class NewsSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
         fields = ['translations', 'date', 'main_photo', ]
 
 
-class NewsImagesSerializer(serializers.ModelSerializer):
-
+class GalleryImagesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = NewsImages
-        fields = ['news_id', 'photo', ]
+        model = GalleryImages
+        fields = ['gallery_id', 'images', ]
 
 
 class GallerySerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=Gallery)
 
     class Meta:
-        model = ['translations', 'main_image', 'date_added', ]
-
-
-class GalleryImagesSerializer(TranslatableModelSerializer):
-
-    class Meta:
-        model = GalleryImages
-        fields = ['gallery_id', 'images', ]
+        model = Gallery
+        fields = ['translations', 'main_image', 'date_added', ]
 
 
 class MainPageSerializer(serializers.ModelSerializer):
@@ -113,14 +112,3 @@ class GlobalSearchSerializer(serializers.Serializer):
         else:
             raise Exception("Not found in any instance!")
         return serializer.data
-
-
-
-# def save(points):
-#     rating = []
-#     sorted_list = sorted(points)
-#     for index, score in enumerate(sorted_list):
-#         if index >= 0: 
-#             index += 1
-#             rating.append(index)
-#     return sorted_list, rating
