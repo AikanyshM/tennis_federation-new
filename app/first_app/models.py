@@ -130,7 +130,7 @@ class Gallery(TranslatableModel):
         return title if title is not None else '(not translated)'
 
 
-class GalleryImages(TranslatableModel):
+class GalleryImages(models.Model):
     gallery_id = models.ForeignKey(Gallery, on_delete=models.CASCADE)
     images = models.ImageField(upload_to="gallery_images", verbose_name= _('Фотографии'))
 

@@ -52,19 +52,21 @@ class RatingSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
                 return index + 1
 
 
-class NewsSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
-    translations = TranslatedFieldsField(shared_model=News)
-
-    class Meta:
-        model = News
-        fields = ['translations', 'date', 'main_photo', ]
-
-
 class NewsImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NewsImages
         fields = ['news_id', 'photo', ]
+        
+
+class NewsSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=News)
+    images = NewsImagesSerializer(many=True)
+
+    class Meta:
+        model = News
+        fields = ['translations', 'date', 'main_photo', 'images', ]
+        related_object = 'newsimages'
 
 
 class GallerySerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
@@ -74,8 +76,7 @@ class GallerySerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
         model = ['translations', 'main_image', 'date_added', ]
 
 
-class GalleryImagesSerializer(TranslatableModelSerializer):
-
+class GalleryImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = GalleryImages
         fields = ['gallery_id', 'images', ]
