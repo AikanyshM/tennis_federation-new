@@ -52,7 +52,7 @@ class RatingSerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
                 return index + 1
 
 
-class NewsImagesSerializer(serializers.ModelSerializer):
+class NewsImagesSerializer(TranslatableModelSerializer):
 
     class Meta:
         model = NewsImages
@@ -76,7 +76,7 @@ class GallerySerializer(TranslatedSerializerMixin, TranslatableModelSerializer):
         model = ['translations', 'main_image', 'date_added', ]
 
 
-class GalleryImagesSerializer(serializers.ModelSerializer):
+class GalleryImagesSerializer(TranslatableModelSerializer):
     class Meta:
         model = GalleryImages
         fields = ['gallery_id', 'images', ]

@@ -110,7 +110,7 @@ class News(TranslatableModel):
         return name if name is not None else '(not translated)'
 
 
-class NewsImages(models.Model):
+class NewsImages(TranslatableModel):
     news_id = models.ForeignKey(News, on_delete=models.CASCADE)
     photo = models.ImageField(verbose_name= _('Фотографии'), upload_to='news_image')
 
@@ -130,7 +130,7 @@ class Gallery(TranslatableModel):
         return title if title is not None else '(not translated)'
 
 
-class GalleryImages(models.Model):
+class GalleryImages(TranslatableModel):
     gallery_id = models.ForeignKey(Gallery, on_delete=models.CASCADE)
     images = models.ImageField(upload_to="gallery_images", verbose_name= _('Фотографии'))
 
