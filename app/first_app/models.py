@@ -24,8 +24,8 @@ class Category(TranslatableModel):
 
 class Club(TranslatableModel):
     address_link = models.URLField(verbose_name = _("Ссылка на адрес клуба"))
-    instagram = models.URLField(verbose_name= _("Instagram"))
-    facebook = models.URLField(verbose_name= _("Facebook"))
+    instagram = models.URLField(verbose_name= _("instagram"))
+    facebook = models.URLField(verbose_name= _("facebook"))
     images = models.ImageField(verbose_name = _("Фото клуба"))
     translations = TranslatedFields(
         name = models.CharField(max_length=100, verbose_name = _("Название клуба")),
