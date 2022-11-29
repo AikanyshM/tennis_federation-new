@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import PlayerCreateSerializer, PlayerSerializer, UserCreateSerializer, ChangePasswordSerializer, MyTokenObtainPairSerializer, PlayerProfileSerializer
+from .serializers import PlayerCreateSerializer, PlayerSerializer, UserCreateSerializer, ChangePasswordSerializer, MyTokenObtainPairSerializer, PlayerProfileSerializer, UpdateUserSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework import generics
 from .models import User, Player, AdminUser
@@ -8,13 +8,11 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.generics import CreateAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import authentication, permissions
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.shortcuts import get_object_or_404
-# from .permissions import IsOwner
 
 
 class MyObtainTokenPairView(TokenObtainPairView):
@@ -44,7 +42,7 @@ class AdminUserCreateAPIView(CreateAPIView):
 
 
 class ChangePasswordView(generics.UpdateAPIView):
-    queryset = Player.objects.all()
+    queryset = User.objects.all()
     permission_classes = (IsAuthenticated,)
     serializer_class = ChangePasswordSerializer
 
@@ -57,27 +55,21 @@ class UserProfile(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         return self.queryset.get(pk=self.request.user.player.id)
 
+class UpdateProfileView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UpdateUserSerializer
 
 class LogoutView(APIView):
     permission_classes = (IsAuthenticated,)
 
-    def post(self, request):
-        try:
-            refresh_token = request.data["refresh_token"]
-            token = RefreshToken(refresh_token)
-            token.blacklist()
-
-            return Response(status=status.HTTP_205_RESET_CONTENT)
-        except Exception as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
-class LogoutAllView(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def post(self, request):
-        tokens = OutstandingToken.objects.filter(user_id=request.user.id)
-        for token in tokens:
-            t, _ = BlacklistedToken.objects.get_or_create(token=token)
-
-        return Response(status=status.HTTP_205_RESET_CONTENT)
+    def post(self, request, *args, **kwargs):
+        if self.request.data.get('all'):
+            token: OutstandingToken
+            for token in OutstandingToken.objects.filter(user=request.user):
+                _, _ = BlacklistedToken.objects.get_or_create(token=token)
+            return Response({"status": "OK, goodbye, all refresh tokens blacklisted"})
+        refresh_token = self.request.data.get('refresh_token')
+        token = RefreshToken(token=refresh_token)
+        token.blacklist()
+        return Response({"status": "OK, goodbye"})

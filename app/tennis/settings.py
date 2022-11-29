@@ -24,13 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", 'my_default_secret_key')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", default=0)
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
+ALLOWED_HOSTS = ['127.0.0.1',] if not os.environ.get("ALLOWED_HOSTS") else os.environ.get("ALLOWED_HOSTS").split(",")
 
 # Application definition
 
@@ -41,11 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'drf_yasg',
     'corsheaders',
     'django_filters',
     'rest_framework',
+    'drf_yasg',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt.token_blacklist',
     'first_app',
     'account',
     'rosetta', 
@@ -91,7 +92,8 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=24),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False
 }
@@ -108,12 +110,12 @@ SIMPLE_JWT = {
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("SQL_ENGINE"),
+        "ENGINE": 'django.db.backends.postgresql',
         "NAME": os.environ.get("SQL_DATABASE"),
         "USER": os.environ.get("SQL_USER"),
         "PASSWORD": os.environ.get("SQL_PASSWORD"),
         "HOST": os.environ.get("SQL_HOST"),
-        "PORT": os.environ.get("SQL_PORT"),
+        "PORT": os.environ.get("SQL_PORT"), 
     }
 }
 
