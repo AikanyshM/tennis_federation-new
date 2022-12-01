@@ -40,6 +40,7 @@ class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
         fields = "__all__"
+        read_only_fields = ['user',]
 
 
 class PlayerProfileSerializer(serializers.ModelSerializer):
@@ -60,7 +61,6 @@ class PlayerCreateSerializer(UserCreateSerializer):
             'first_name': {'required': True},
             'last_name': {'required': True}
         }
-        read_only_fields = ['user', ]
 
     def save(self):
         user = User(username=self.validated_data['username'],
