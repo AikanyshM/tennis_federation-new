@@ -4,6 +4,7 @@ from .models import User, Player, AdminUser
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from drf_writable_nested import WritableNestedModelSerializer
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -43,7 +44,7 @@ class PlayerSerializer(serializers.ModelSerializer):
         read_only_fields = ['user',]
 
 
-class PlayerProfileSerializer(serializers.ModelSerializer):
+class PlayerProfileSerializer(WritableNestedModelSerializer, serializers.ModelSerializer):
     user = UserSerializer()
     class Meta:
         model = Player
