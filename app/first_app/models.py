@@ -24,13 +24,13 @@ class Category(TranslatableModel):
 
 class Club(TranslatableModel):
     address_link = models.URLField(verbose_name = _("Ссылка на адрес клуба"))
-    instagram = models.URLField(verbose_name= _("instagram"))
-    facebook = models.URLField(verbose_name= _("facebook"))
+    instagram = models.URLField(verbose_name= _("Instagram"), null=True, blank=True)
+    facebook = models.URLField(verbose_name= _("Facebook"), null=True, blank=True)
     images = models.ImageField(verbose_name = _("Фото клуба"))
     translations = TranslatedFields(
         name = models.CharField(max_length=100, verbose_name = _("Название клуба")),
-        description = models.CharField(max_length=255, verbose_name = _("Описание клуба")),
-        address =   models.CharField(max_length=100, verbose_name = _("Адрес клуба")),
+        description = models.TextField(verbose_name = _("Описание клуба")),
+        address =   models.TextField(verbose_name = _("Адрес клуба")),
         contacts = models.CharField(max_length=100, verbose_name = _("Контакты")),
         working_hours = models.CharField(max_length=100, verbose_name = _("Часы работы"))
         )
@@ -44,7 +44,7 @@ class Trainer(TranslatableModel):
     images = models.ImageField(verbose_name = _("Фото тренера"))
     translations = TranslatedFields(
         name = models.CharField(max_length=100, verbose_name= _("ФИО тренера")),
-        description = models.CharField(max_length=255, verbose_name = _("Информация о тренере")),
+        description = models.TextField(verbose_name = _("Информация о тренере")),
         address =   models.CharField(max_length=100, verbose_name = _("Место работы")),
         contacts = models.CharField(max_length=100, verbose_name =  _("Контакты")),
     )
@@ -55,14 +55,14 @@ class Trainer(TranslatableModel):
 
 
 class Gender(models.TextChoices):
-    male = 'male', _('Male')
-    female = 'female', _('Female')
+    male = _('male'), _('Male')
+    female = _('female'), _('Female')
 
 
 class Age(models.TextChoices):
-    under_14 = 'under_14', _('Under 14')
-    older_14 = '14 and older', _('14 and older')
-
+    under_14 = _('under_14'), _('Under 14')
+    older_14 = _('14 and older'), _('14 and older')
+ 
 
 class Calendar(TranslatableModel):
     start_date = models.DateField(verbose_name= _('Дата начала турнира'))

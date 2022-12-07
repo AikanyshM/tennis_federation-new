@@ -57,7 +57,7 @@ class CalendarViewSet(ModelViewSet):
     filter_backends = [filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter,]
     filterset_class = CalendarFilter
     search_fields = ('translations__name',)
-    ordering_fields = ['start_date', ]
+    ordering = ['start_date']
     permission_classes = [IsStaffOrAny,]
 
 
@@ -73,14 +73,14 @@ class NewsViewSet(ModelViewSet):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
     filter_backends = [filters.OrderingFilter,]
-    ordering_fields = ['date', ]
+    ordering = ['date']
     permission_classes = [IsStaffOrAny,]
     
 class GalleryViewSet(ModelViewSet):
     queryset = Gallery.objects.all()
     serializer_class = GallerySerializer
     filter_backends = [filters.OrderingFilter,]
-    ordering_fields = ['date_added', ]
+    ordering = ['date_added']
     permission_classes = [IsStaffOrAny,]
 
 
