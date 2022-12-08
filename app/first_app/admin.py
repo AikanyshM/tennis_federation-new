@@ -31,7 +31,7 @@ class CalendarAdmin(TranslatableAdmin):
     list_display = ('name', 'start_date', 'end_date')
 
 class RatingAdmin(TranslatableAdmin):
-    list_display = ('full_name', 'points')
+    list_display = ('full_name', 'points', )
 
 class NewsImageAdminInline(admin.TabularInline):
     extra = 1

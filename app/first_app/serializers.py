@@ -80,11 +80,19 @@ class GalleryImagesSerializer(serializers.ModelSerializer):
 
 class GallerySerializer(TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=Gallery)
-
+    gallery_image = GalleryImagesSerializer(many=True)
+    
     class Meta:
         model = Gallery
-        fields = ['translations', 'id', 'main_image', 'date_added', ]
+        fields = ['id', 'translations', 'main_image', 'date_added', 'gallery_image' ]
         read_only_fields = ['id', ]
+
+    def create(self, validated_data):
+        gallery_image = validated_data.pop('gallery_image')
+        gallery_instance = Gallery.objects.create(**validated_data)
+        for image in gallery_image:
+            GalleryImages.objects.create(gallery_id=gallery_instance,**image)
+        return gallery_instance
 
 
 class MainPageSerializer(serializers.ModelSerializer):
