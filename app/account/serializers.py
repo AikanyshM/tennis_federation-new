@@ -21,6 +21,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(_('Пароли должны совпадать'))
         return data
 
+
     def save(self):
         user = User(username=self.validated_data['username'],
                     is_staff=self.validated_data['is_staff'],
@@ -37,6 +38,12 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ["id", "email", "first_name", "last_name"]
         read_only_fields = ['username',]
 
+    # def validate_email(self, value):
+    #         user = self.context['request'].user
+    #         if User.objects.exclude(pk=user.pk).filter(email=value).exists():
+    #             raise serializers.ValidationError(_({"email": "Этот email уже используется"}))
+    #         return value
+
 
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -51,6 +58,7 @@ class PlayerProfileSerializer(WritableNestedModelSerializer, serializers.ModelSe
         model = Player
         fields = "__all__"
 
+    
 
 class PlayerCreateSerializer(UserCreateSerializer):
     player = PlayerSerializer()
@@ -63,6 +71,7 @@ class PlayerCreateSerializer(UserCreateSerializer):
             'first_name': {'required': True},
             'last_name': {'required': True}
         }
+    
 
     def save(self):
         user = User(username=self.validated_data['username'],

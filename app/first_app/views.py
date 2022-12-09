@@ -6,7 +6,7 @@ from rest_framework import permissions
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny, IsAdminUser
 from rest_framework.authentication import BaseAuthentication, BasicAuthentication, SessionAuthentication
-from django_filters.rest_framework import DjangoFilterBackend, NumberFilter, FilterSet
+from django_filters.rest_framework import DjangoFilterBackend, NumberFilter, FilterSet, ChoiceFilter
 from rest_framework import filters
 from .permissions import *
 from rest_framework.viewsets import ModelViewSet
@@ -41,14 +41,15 @@ class TrainerModelViewSet(ModelViewSet):
 
 
 class CalendarFilter(FilterSet):
-    start_month = NumberFilter(field_name='start_date', lookup_expr='month')
-    start_year = NumberFilter(field_name='start_date', lookup_expr='year')
-    end_month = NumberFilter(field_name='end_date', lookup_expr='month')
-    end_year = NumberFilter(field_name='end_date', lookup_expr='year')
+    start_month = NumberFilter(field_name='start_date', lookup_expr='month', distinct=True)
+    start_year = NumberFilter(field_name='start_date', lookup_expr='year', distinct=True)
+    category_gender = ChoiceFilter(choices=Gender.choices, field_name='translations__category_gender', distinct=True)
+    category_age = ChoiceFilter(choices=Age.choices, field_name='translations__category_age', distinct=True)
+
 
     class Meta:
         model = Calendar
-        fields = ['translations__category_gender', 'translations__category_age', 'start_month', 'start_year', 'end_month', 'end_year']
+        fields = ['category_gender', 'category_age', 'start_month', 'start_year',]
 
 
 class CalendarViewSet(ModelViewSet):
@@ -61,11 +62,21 @@ class CalendarViewSet(ModelViewSet):
     permission_classes = [IsStaffOrAny,]
 
 
+class RatingFilter(FilterSet):
+    category_gender = ChoiceFilter(choices=Gender.choices, field_name='translations__category_gender', distinct=True)
+    category_age = ChoiceFilter(choices=Age.choices, field_name='translations__category_age', distinct=True)
+
+
+    class Meta:
+        model = Rating
+        fields = ['category_gender', 'category_age',]
+
+
 class RatingViewSet(ModelViewSet):
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['translations__category_gender', 'translations__category_age']
+    filterset_class = RatingFilter
     permission_classes = [IsStaffOrAny,]
 
 
@@ -75,6 +86,7 @@ class NewsViewSet(ModelViewSet):
     filter_backends = [filters.OrderingFilter,]
     ordering = ['date']
     permission_classes = [IsStaffOrAny,]
+    
     
 class GalleryViewSet(ModelViewSet):
     queryset = Gallery.objects.all()
