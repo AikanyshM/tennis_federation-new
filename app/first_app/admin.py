@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Calendar, Category, Club, Rating, Trainer, News, NewsImages, Gallery, GalleryImages
+from .models import Calendar, Category, Club, Rating, Trainer, News, NewsImages, Gallery, GalleryImages, MainPage
 from parler.admin import TranslatableTabularInline, TranslatableAdmin, TranslatableInlineModelAdmin
 
 
@@ -21,17 +21,12 @@ class GalleryImagesAdminInline(admin.TabularInline):
 class GalleryAdmin(TranslatableAdmin):
     inlines = [GalleryImagesAdminInline, ]
 
-
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Club, ClubAdmin)
-admin.site.register(Trainer, TrainerAdmin)
-
-
 class CalendarAdmin(TranslatableAdmin):
-    list_display = ('name', 'start_date', 'end_date')
+    list_display = ('name', 'start_date', 'end_date', 'location')
 
 class RatingAdmin(TranslatableAdmin):
-    list_display = ('full_name', 'points', )
+    list_display = ('full_name', 'points', 'birth_date', 'category_gender', 'number_of_tournaments',
+    'category_age')
 
 class NewsImageAdminInline(admin.TabularInline):
     extra = 1
@@ -41,6 +36,13 @@ class NewsImageAdminInline(admin.TabularInline):
 class NewsAdmin(TranslatableAdmin):
     inlines = [NewsImageAdminInline, ]
 
+class MainPageAdmin(admin.ModelAdmin):
+    list_display = ('main_photo', 'whatsapp', 'facebook', 'instagram')
+
 
 admin.site.register(Calendar, CalendarAdmin)
 admin.site.register(Rating, RatingAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Club, ClubAdmin)
+admin.site.register(Trainer, TrainerAdmin)
+admin.site.register(MainPage, MainPageAdmin)
