@@ -144,5 +144,6 @@ class MainPage(models.Model):
     instagram = models.URLField()
 
 
-    def __str__(self):
-        return self.main_photo
+    # def __str__(self):
+    #     return self.main_photo
+
