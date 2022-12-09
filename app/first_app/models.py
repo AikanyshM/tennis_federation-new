@@ -130,7 +130,7 @@ class Gallery(TranslatableModel):
 
 
 class GalleryImages(models.Model):
-    gallery_id = models.ForeignKey(Gallery, on_delete=models.CASCADE)
+    gallery_id = models.ForeignKey(Gallery, on_delete=models.CASCADE, related_name='gallery_image')
     images = models.ImageField(upload_to="gallery_images", verbose_name= _('Фотографии'))
 
     def __str__(self):

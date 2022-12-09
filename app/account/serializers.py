@@ -5,6 +5,7 @@ from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from drf_writable_nested import WritableNestedModelSerializer
+from django.utils.translation import gettext_lazy as _
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -17,7 +18,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         if data['password'] != data['password2']:
-            raise serializers.ValidationError('Пароли должны совпадать')
+            raise serializers.ValidationError(_('Пароли должны совпадать'))
         return data
 
     def save(self):
@@ -95,59 +96,21 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
-            raise serializers.ValidationError({"password": "Пароли не совпадают"})
+            raise serializers.ValidationError(_({"password": "Пароли не совпадают"}))
         return attrs
 
     def validate_old_password(self, value):
         user = self.context['request'].user
         if not user.check_password(value):
-            raise serializers.ValidationError({"old_password": "Старый пароль неправильный"})
+            raise serializers.ValidationError(_({"old_password": "Старый пароль неправильный"}))
         return value
 
 
     def update(self, instance, validated_data):
         user = self.context['request'].user
         if user.pk != instance.pk:
-            raise serializers.ValidationError({'authorize': "You don't have permission for this user"})
+            raise serializers.ValidationError(_({'authorize': "You don't have permission for this user"}))
         instance.set_password(validated_data['password'])
-        instance.save()
-
-        return instance
-
-class UpdateUserSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(required=True)
-    class Meta:
-        model = User
-        fields = ('username', 'first_name', 'last_name', 'email')
-        extra_kwargs = {
-            'first_name': {'required': True},
-            'last_name': {'required': True},
-        }
-
-    def validate_email(self, value):
-        user = self.context['request'].user
-        if User.objects.exclude(pk=user.pk).filter(email=value).exists():
-            raise serializers.ValidationError({"email": "Этот email уже используется"})
-        return value
-
-    def validate_username(self, value):
-        user = self.context['request'].user
-        if User.objects.exclude(pk=user.pk).filter(username=value).exists():
-            raise serializers.ValidationError({"username": "Это пользователь уже зарегистрирован"})
-        return value
-
-
-    def update(self, instance, validated_data):
-        user = self.context['request'].user
-
-        if user.pk != instance.pk:
-            raise serializers.ValidationError({"authorize": "You dont have permission for this user."})
-
-        instance.first_name = validated_data['first_name']
-        instance.last_name = validated_data['last_name']
-        instance.email = validated_data['email']
-        instance.username = validated_data['username']
-
         instance.save()
 
         return instance
