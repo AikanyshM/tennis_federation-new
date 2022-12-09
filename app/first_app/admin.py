@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Calendar, Category, Club, Rating, Trainer, News, NewsImages, Gallery, GalleryImages
+from .models import Calendar, Category, Club, Rating, Trainer, News, NewsImages, Gallery, GalleryImages, MainPage
 from parler.admin import TranslatableTabularInline, TranslatableAdmin, TranslatableInlineModelAdmin
 
 
@@ -36,9 +36,13 @@ class NewsImageAdminInline(admin.TabularInline):
 class NewsAdmin(TranslatableAdmin):
     inlines = [NewsImageAdminInline, ]
 
+class MainPageAdmin(admin.ModelAdmin):
+    list_display = ('main_photo', 'whatsapp', 'facebook', 'instagram')
+
 
 admin.site.register(Calendar, CalendarAdmin)
 admin.site.register(Rating, RatingAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Club, ClubAdmin)
 admin.site.register(Trainer, TrainerAdmin)
+admin.site.register(MainPage, MainPageAdmin)
