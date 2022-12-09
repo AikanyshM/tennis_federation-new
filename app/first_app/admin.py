@@ -21,17 +21,12 @@ class GalleryImagesAdminInline(admin.TabularInline):
 class GalleryAdmin(TranslatableAdmin):
     inlines = [GalleryImagesAdminInline, ]
 
-
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Club, ClubAdmin)
-admin.site.register(Trainer, TrainerAdmin)
-
-
 class CalendarAdmin(TranslatableAdmin):
-    list_display = ('name', 'start_date', 'end_date')
+    list_display = ('name', 'start_date', 'end_date', 'location')
 
 class RatingAdmin(TranslatableAdmin):
-    list_display = ('full_name', 'points', )
+    list_display = ('full_name', 'points', 'birth_date', 'category_gender', 'number_of_tournaments',
+    'category_age')
 
 class NewsImageAdminInline(admin.TabularInline):
     extra = 1
@@ -44,3 +39,6 @@ class NewsAdmin(TranslatableAdmin):
 
 admin.site.register(Calendar, CalendarAdmin)
 admin.site.register(Rating, RatingAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Club, ClubAdmin)
+admin.site.register(Trainer, TrainerAdmin)
