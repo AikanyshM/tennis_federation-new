@@ -102,30 +102,27 @@ class MainPageSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class GlobalSearchSerializer(serializers.Serializer):
-    class Meta:      
-        model = User
-        
+# class GlobalSearchSerializer(serializers.Serializer):
 
-    def to_native(self, obj):
-        if isinstance(obj, Category): 
-            serializer = CategorySerializer(obj)
-        elif isinstance(obj, Club):
-            serializer = ClubSerializer(obj)
-        elif isinstance(obj, Trainer):
-             serializer = TrainerSerializer(obj)
-        elif isinstance(obj, Calendar):
-             serializer = CalendarSerializer(obj)
-        elif isinstance(obj, Rating):
-             serializer = RatingSerializer(obj)
-        elif isinstance(obj, News):
-             serializer = NewsSerializer(obj)
-        elif isinstance(obj, NewsImages):
-            serializer = NewsImagesSerializer(obj)
-        elif isinstance(obj, Gallery):
-             serializer = GallerySerializer(obj)
-        elif isinstance(obj, GalleryImages):
-             serializer = GalleryImagesSerializer(obj)
-        else:
-            raise Exception("Not found in any instance!")
-        return serializer.data
+#     def to_native(self, obj):
+#         if isinstance(obj, Category): 
+#             serializer = CategorySerializer(obj)
+#         elif isinstance(obj, Club):
+#             serializer = ClubSerializer(obj)
+#         elif isinstance(obj, Trainer):
+#              serializer = TrainerSerializer(obj)
+#         elif isinstance(obj, Calendar):
+#              serializer = CalendarSerializer(obj)
+#         elif isinstance(obj, Rating):
+#              serializer = RatingSerializer(obj)
+#         elif isinstance(obj, News):
+#              serializer = NewsSerializer(obj)
+#         elif isinstance(obj, NewsImages):
+#             serializer = NewsImagesSerializer(obj)
+#         elif isinstance(obj, Gallery):
+#              serializer = GallerySerializer(obj)
+#         elif isinstance(obj, GalleryImages):
+#              serializer = GalleryImagesSerializer(obj)
+#         else:
+#             raise Exception("Not found in any instance!")
+#         return serializer.data

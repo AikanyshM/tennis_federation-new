@@ -4,7 +4,6 @@ from .serializers import *
 from rest_framework import authentication
 from rest_framework import permissions
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
-from django.views.generic.list import ListView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny, IsAdminUser
 from rest_framework.authentication import BaseAuthentication, BasicAuthentication, SessionAuthentication
 from django_filters.rest_framework import DjangoFilterBackend, NumberFilter, FilterSet, ChoiceFilter
@@ -15,10 +14,8 @@ from django.db.models import Q
 from itertools import chain
 import json
 from django.http import JsonResponse
-from rest_framework.response import Response
 from django.core import serializers
-from parler.views import TranslatableSlugMixin
-from drf_multiple_model.views import ObjectMultipleModelAPIView
+
 
 #About Federations
 
