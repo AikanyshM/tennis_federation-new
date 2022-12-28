@@ -35,7 +35,7 @@ class CalendarSerializer(TranslatableModelSerializer):
 
     class Meta:
         model = Calendar
-        fields = ['id', 'translations', 'start_date', 'end_date', ]
+        fields = ['id', 'translations', 'start_date', 'end_date', 'category_gender', 'category_age', ]
         read_only_fields = ['id', ]
 
 
@@ -45,7 +45,7 @@ class RatingSerializer(TranslatableModelSerializer):
 
     class Meta:
         model = Rating
-        fields = ['id', 'translations', 'rating', 'birth_date', 'number_of_tournaments', 'points', ]
+        fields = ['id', 'translations', 'rating', 'birth_date', 'number_of_tournaments', 'points', 'category_gender', 'category_age', ]
         read_only_fields = ('rating', 'id', )
 
     def get_rating(self, instance):
@@ -81,7 +81,7 @@ class GalleryImagesSerializer(serializers.ModelSerializer):
 class GallerySerializer(TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=Gallery)
     gallery_image = GalleryImagesSerializer(many=True)
-    
+
     class Meta:
         model = Gallery
         fields = ['id', 'translations', 'main_image', 'date_added', 'gallery_image' ]
@@ -117,28 +117,27 @@ class InformationalPartnersSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class GlobalSearchSerializer(serializers.Serializer):
-    def to_native(self, obj):
-        if isinstance(obj, Category): 
-            serializer = CategorySerializer(obj)
-        elif isinstance(obj, Club):
-            serializer = ClubSerializer(obj)
-        elif isinstance(obj, Trainer):
-             serializer = TrainerSerializer(obj)
-        elif isinstance(obj, Calendar):
-             serializer = CalendarSerializer(obj)
-        elif isinstance(obj, Rating):
-             serializer = RatingSerializer(obj)
-        elif isinstance(obj, News):
-             serializer = NewsSerializer(obj)
-        elif isinstance(obj, NewsImages):
-            serializer = NewsImagesSerializer(obj)
-        elif isinstance(obj, Gallery):
-             serializer = GallerySerializer(obj)
-        elif isinstance(obj, GalleryImages):
-             serializer = GalleryImagesSerializer(obj)
-        elif isinstance(obj, MainPage):
-             serializer = MainPageSerializer(obj)
-        else:
-            raise Exception("Not found in any instance!")
-        return serializer.data
+# class GlobalSearchSerializer(serializers.Serializer):
+
+#     def to_native(self, obj):
+#         if isinstance(obj, Category): 
+#             serializer = CategorySerializer(obj)
+#         elif isinstance(obj, Club):
+#             serializer = ClubSerializer(obj)
+#         elif isinstance(obj, Trainer):
+#              serializer = TrainerSerializer(obj)
+#         elif isinstance(obj, Calendar):
+#              serializer = CalendarSerializer(obj)
+#         elif isinstance(obj, Rating):
+#              serializer = RatingSerializer(obj)
+#         elif isinstance(obj, News):
+#              serializer = NewsSerializer(obj)
+#         elif isinstance(obj, NewsImages):
+#             serializer = NewsImagesSerializer(obj)
+#         elif isinstance(obj, Gallery):
+#              serializer = GallerySerializer(obj)
+#         elif isinstance(obj, GalleryImages):
+#              serializer = GalleryImagesSerializer(obj)
+#         else:
+#             raise Exception("Not found in any instance!")
+#         return serializer.data
