@@ -1,5 +1,3 @@
-from distutils.command.upload import upload
-from tabnanny import verbose
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
@@ -147,3 +145,21 @@ class MainPage(models.Model):
     # def __str__(self):
     #     return self.main_photo
 
+class OfficialPartner(models.Model):
+    # title = models.CharField(max_length=100, verbose_name=_('Официальный партнер Федерации'))
+    images = models.ImageField(upload_to="official_partner_images", verbose_name=_('Фото официальных партнеров Федерации'))
+
+    # def __str__(self):
+    #     return self.title
+class SponsorsAndPartners(models.Model):
+    # title = models.CharField(max_length=100, verbose_name=_('Спонсоры и партнеры'))
+    images = models.ImageField(upload_to="sponsors_partners_images", verbose_name=_('Фото спонсоров и партнеров Федерации'))
+
+    # def __str__(self):
+    #     return self.title
+class InformationalPartners(models.Model):
+    # title = models.CharField(max_length=100, verbose_name=_('Информационные партнеры Федерации'))
+    images = models.ImageField(upload_to="informational_partners_images", verbose_name=_('Фото информационных партнеров Федерации'))
+
+    # def __str__(self):
+    #     return self.title
