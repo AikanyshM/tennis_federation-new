@@ -18,7 +18,7 @@ router.register(r'main_page', MainPageViewSet, basename='main_page')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('search/', GlobalSearchList.as_view(), name='search'),
+    path('search/', search, name='search'),
 ]
 
 

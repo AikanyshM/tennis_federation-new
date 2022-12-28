@@ -67,11 +67,12 @@ class Age(models.TextChoices):
 class Calendar(TranslatableModel):
     start_date = models.DateField(verbose_name= _('Дата начала турнира'))
     end_date = models.DateField(verbose_name= _('Дата окончания турнира'))
+    category_gender = models.CharField(choices=Gender.choices,max_length=100, verbose_name= _('Категория пол'))
+    category_age = models.CharField(choices=Age.choices, max_length=100, verbose_name= _('Категория возраст'))
+    
     translations = TranslatedFields(
         name = models.CharField(max_length=100, verbose_name= _('Название турнира')),
         location = models.CharField(max_length=100, verbose_name= _('Город')),
-        category_gender = models.CharField(choices=Gender.choices,max_length=100, verbose_name= _('Категория пол')),
-        category_age = models.CharField(choices=Age.choices, max_length=100, verbose_name= _('Категория возраст')),
         )
 
     def __str__(self):
@@ -83,10 +84,11 @@ class Rating(TranslatableModel):
     birth_date = models.DateField(verbose_name= _('Год рождения'))
     number_of_tournaments = models.IntegerField(verbose_name= _('Кол-во турниров'))
     points = models.IntegerField(verbose_name= _('Очки'))
+    category_gender = models.CharField(choices=Gender.choices,max_length=100, verbose_name= _('Категория пол'))
+    category_age = models.CharField(choices=Age.choices, max_length=100, verbose_name= _('Категория возраст'))
+    
     translations = TranslatedFields(
         full_name = models.CharField(max_length=100, verbose_name= _('ФИО')),
-        category_gender = models.CharField(choices=Gender.choices,max_length=100, verbose_name= _('Категория пол')),
-        category_age = models.CharField(choices=Age.choices, max_length=100, verbose_name= _('Категория возраст')),
         )
 
 
