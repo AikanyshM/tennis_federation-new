@@ -138,25 +138,21 @@ def search(request):
 
 
     if search:
-        category = category.filter(Q(translations__title__icontains=search) | Q(translations__text__icontains=search))
-        club = club.filter(Q(translations__name__icontains=search) | Q(translations__description__icontains=search) | Q(translations__address__icontains=search) | Q(translations__contacts__icontains=search) | Q(translations__working_hours__icontains=search) | Q(instagram__icontains=search) | Q(facebook__icontains=search))
-        trainer = trainer.filter(Q(translations__name__icontains=search) | Q(translations__description__icontains=search) | Q(translations__address__icontains=search) | Q(translations__contacts__icontains=search))
-        calendar = calendar.filter(Q(translations__name__icontains=search) | Q(start_date__icontains=search) | Q(end_date__icontains=search) | Q(translations__location__icontains=search) | Q(category_gender__icontains=search) | Q(category_age__icontains=search))
-        rating = rating.filter(Q(translations__full_name__icontains=search) | Q(birth_date__icontains=search) | Q(number_of_tournaments__icontains=search) | Q(category_gender__icontains=search) | Q(category_age__icontains=search) | Q(points__icontains=search))
-        news = news.filter(Q(translations__name__icontains=search) | Q(date__icontains=search) | Q(translations__description__icontains=search) | Q(translations__source__icontains=search))
-        gallery = gallery.filter(Q(date_added__icontains=search) | Q(translations__title__icontains=search))
+        category = category.filter(Q(translations__title__icontains=search) | Q(translations__text__icontains=search)).distinct()
+        club = club.filter(Q(translations__name__icontains=search) | Q(translations__description__icontains=search) | Q(translations__address__icontains=search) | Q(translations__contacts__icontains=search) | Q(translations__working_hours__icontains=search) | Q(instagram__icontains=search) | Q(facebook__icontains=search)).distinct()
+        trainer = trainer.filter(Q(translations__name__icontains=search) | Q(translations__description__icontains=search) | Q(translations__address__icontains=search) | Q(translations__contacts__icontains=search)).distinct()
+        calendar = calendar.filter(Q(translations__name__icontains=search) | Q(start_date__icontains=search) | Q(end_date__icontains=search) | Q(translations__location__icontains=search) | Q(category_gender__icontains=search) | Q(category_age__icontains=search)).distinct()
+        rating = rating.filter(Q(translations__full_name__icontains=search) | Q(birth_date__icontains=search) | Q(number_of_tournaments__icontains=search) | Q(category_gender__icontains=search) | Q(category_age__icontains=search) | Q(points__icontains=search)).distinct()
+        news = news.filter(Q(translations__name__icontains=search) | Q(date__icontains=search) | Q(translations__description__icontains=search) | Q(translations__source__icontains=search)).distinct()
+        gallery = gallery.filter(Q(date_added__icontains=search) | Q(translations__title__icontains=search)).distinct()
 
-        category = CategorySerializer(category, many=True).data
-        club = ClubSerializer(club, many=True).data
-        trainer = TrainerSerializer(trainer, many=True).data
-        calendar = CalendarSerializer(calendar, many=True).data
-        rating = RatingSerializer(rating, many=True).data
-        news = NewsSerializer(news, many=True).data
-        gallery = GallerySerializer(gallery, many=True).data
-
-        all_results = list(chain(category, club, trainer, calendar, rating, news, gallery))
-
-    return JsonResponse(all_results, safe=False)
+    return JsonResponse({"category": CategorySerializer(category, many=True).data,
+                        "club": ClubSerializer(club, many=True).data,
+                        "trainer": TrainerSerializer(trainer, many=True).data,
+                        "calendar": CalendarSerializer(calendar, many=True).data,
+                        "rating": RatingSerializer(rating, many=True).data,
+                        "news": NewsSerializer(news, many=True).data,
+                        "gallery": GallerySerializer(gallery, many=True).data})
 
 
 class MainPageViewSet(ModelViewSet):
