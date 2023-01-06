@@ -15,6 +15,7 @@ from itertools import chain
 import json
 from django.http import JsonResponse
 from django.core import serializers
+from rest_framework.response import Response
 
 
 #About Federations
@@ -31,6 +32,11 @@ class ClubModelViewSet(ModelViewSet):
     queryset = Club.objects.all()
     serializer_class = ClubSerializer
     permission_classes = [IsStaffOrAny, ]
+
+    def get_serializer_context(self, request):
+        context = super().get_serializer_context()
+        context.update({"request": request})
+        return context
 
 
 #About trainers
@@ -109,23 +115,6 @@ class GalleryImagesViewSet(ModelViewSet):
     permission_classes = [IsStaffOrAny,]
 
 
-# class GlobalSearchList(TranslatableSlugMixin, ListAPIView):
-#     serializer_class = GlobalSearchSerializer
-
-#     def list(self, request):
-#         search = self.request.query_params.get('query', None)
-#         category = Category.objects.filter(Q(translations__title__icontains=search) | Q(translations__text__icontains=search))
-#         club = Club.objects.filter(Q(translations__name__icontains=search) | Q(translations__description__icontains=search) | Q(translations__address__icontains=search) | Q(translations__contacts__icontains=search) | Q(translations__working_hours__icontains=search) | Q(instagram__icontains=search) | Q(facebook__icontains=search))
-#         trainer = Trainer.objects.filter(Q(translations__name__icontains=search) | Q(translations__description__icontains=search) | Q(translations__address__icontains=search) | Q(translations__contacts__icontains=search))
-#         calendar = Calendar.objects.filter(Q(translations__name__icontains=search) | Q(start_date__icontains=search) | Q(end_date__icontains=search) | Q(translations__location__icontains=search) | Q(category_gender__icontains=search) | Q(category_age__icontains=search))
-#         rating = Rating.objects.filter(Q(translations__full_name__icontains=search) | Q(birth_date__icontains=search) | Q(number_of_tournaments__icontains=search) | Q(category_gender__icontains=search) | Q(category_age__icontains=search) | Q(points__icontains=search))
-#         news = News.objects.filter(Q(translations__name__icontains=search) | Q(date__icontains=search) | Q(translations__description__icontains=search) | Q(translations__source__icontains=search))
-#         gallery = Gallery.objects.filter(Q(date_added__icontains=search) | Q(translations__title__icontains=search))
-#         all_results = list(chain(category, club, trainer, calendar, rating, news, gallery))
-#         serialize_obj = serializers.serialize('json', all_results)
-#         return JsonResponse(json.loads(serialize_obj), safe=False)
-
-
 def search(request):
     search = request.GET.get("query", None)
     category = Category.objects.all()
@@ -146,13 +135,13 @@ def search(request):
         news = news.filter(Q(translations__name__icontains=search) | Q(date__icontains=search) | Q(translations__description__icontains=search) | Q(translations__source__icontains=search)).distinct()
         gallery = gallery.filter(Q(date_added__icontains=search) | Q(translations__title__icontains=search)).distinct()
 
-    return JsonResponse({"category": CategorySerializer(category, many=True).data,
-                        "club": ClubSerializer(club, many=True).data,
-                        "trainer": TrainerSerializer(trainer, many=True).data,
-                        "calendar": CalendarSerializer(calendar, many=True).data,
-                        "rating": RatingSerializer(rating, many=True).data,
-                        "news": NewsSerializer(news, many=True).data,
-                        "gallery": GallerySerializer(gallery, many=True).data})
+    return JsonResponse({"category": CategorySerializer(category, many=True, context = {'request':request}).data,
+                        "club": ClubSerializer(club, many=True, context = {'request':request}).data,
+                        "trainer": TrainerSerializer(trainer, many=True, context = {'request':request}).data,
+                        "calendar": CalendarSerializer(calendar, many=True, context = {'request':request}).data,
+                        "rating": RatingSerializer(rating, many=True, context = {'request':request}).data,
+                        "news": NewsSerializer(news, many=True, context = {'request':request}).data,
+                        "gallery": GallerySerializer(gallery, many=True, context = {'request':request}).data})
 
 
 class MainPageViewSet(ModelViewSet):

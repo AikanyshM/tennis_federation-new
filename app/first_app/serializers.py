@@ -14,20 +14,32 @@ class CategorySerializer(TranslatableModelSerializer):
 
 class ClubSerializer(TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=Club)
+    images = serializers.SerializerMethodField('get_image_url')
+
 
     class Meta:
         model = Club
-        fields = ['id', 'translations', 'address_link', 'instagram', 'facebook', 'images',  ]
+        fields = ['id', 'translations', 'address_link', 'instagram', 'facebook', 'images', ]
         read_only_fields = ['id', ]
+
+
+    def get_image_url(self, obj):
+        request = self.context.get('request')
+        return request.build_absolute_uri(obj.images.url)
 
 
 class TrainerSerializer(TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=Trainer)
+    images = serializers.SerializerMethodField('get_image_url')
 
     class Meta:
         model = Trainer
         fields = ['id', 'translations', 'images', ]
         read_only_fields = ['id', ]
+
+    def get_image_url(self, obj):
+        request = self.context.get('request')
+        return request.build_absolute_uri(obj.images.url)
 
 
 class CalendarSerializer(TranslatableModelSerializer):
@@ -56,14 +68,22 @@ class RatingSerializer(TranslatableModelSerializer):
 
 
 class NewsImagesSerializer(serializers.ModelSerializer):
+    photo = serializers.SerializerMethodField('get_image_url')
+
+
     class Meta:
         model = NewsImages
         fields = ['id', 'news_id', 'photo', ]
         read_only_fields = ['id', ]
+    
+    def get_image_url(self, obj):
+        request = self.context.get('request')
+        return request.build_absolute_uri(obj.photo.url)
         
 
 class NewsSerializer(TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=News)
+    main_photo = serializers.SerializerMethodField('get_image_url')
 
     class Meta:
         model = News
@@ -71,21 +91,38 @@ class NewsSerializer(TranslatableModelSerializer):
         read_only_fields = ['id', ]
 
 
+    def get_image_url(self, obj):
+        request = self.context.get('request')
+        return request.build_absolute_uri(obj.main_photo.url)
+
+
 class GalleryImagesSerializer(serializers.ModelSerializer):
+    images = serializers.SerializerMethodField('get_image_url')
+
     class Meta:
         model = GalleryImages
         fields = ['id', 'gallery_id', 'images', ]
         read_only_fields = ['id', ]
 
+    def get_image_url(self, obj):
+        request = self.context.get('request')
+        return request.build_absolute_uri(obj.images.url)
+
 
 class GallerySerializer(TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=Gallery)
     gallery_image = GalleryImagesSerializer(many=True)
+    main_image = serializers.SerializerMethodField('get_image_url')
+    
 
     class Meta:
         model = Gallery
         fields = ['id', 'translations', 'main_image', 'date_added', 'gallery_image' ]
         read_only_fields = ['id', ]
+
+    def get_image_url(self, obj):
+        request = self.context.get('request')
+        return request.build_absolute_uri(obj.main_image.url)
 
     def create(self, validated_data):
         gallery_image = validated_data.pop('gallery_image')
@@ -100,29 +137,3 @@ class MainPageSerializer(serializers.ModelSerializer):
     class Meta:
         model = MainPage
         fields = "__all__"
-
-
-# class GlobalSearchSerializer(serializers.Serializer):
-
-#     def to_native(self, obj):
-#         if isinstance(obj, Category): 
-#             serializer = CategorySerializer(obj)
-#         elif isinstance(obj, Club):
-#             serializer = ClubSerializer(obj)
-#         elif isinstance(obj, Trainer):
-#              serializer = TrainerSerializer(obj)
-#         elif isinstance(obj, Calendar):
-#              serializer = CalendarSerializer(obj)
-#         elif isinstance(obj, Rating):
-#              serializer = RatingSerializer(obj)
-#         elif isinstance(obj, News):
-#              serializer = NewsSerializer(obj)
-#         elif isinstance(obj, NewsImages):
-#             serializer = NewsImagesSerializer(obj)
-#         elif isinstance(obj, Gallery):
-#              serializer = GallerySerializer(obj)
-#         elif isinstance(obj, GalleryImages):
-#              serializer = GalleryImagesSerializer(obj)
-#         else:
-#             raise Exception("Not found in any instance!")
-#         return serializer.data

@@ -8,8 +8,8 @@ class User(AbstractUser):
 
 
 class Gender(models.TextChoices):
-    male = _('male'), _('Male')
-    female = _('female'), _('Female')
+    male = _('мужской'), _('Мужской')
+    female = _('женский'), _('Женский')
 
 
 class Player(models.Model):
