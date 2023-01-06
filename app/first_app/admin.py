@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Calendar, Category, Club, Rating, Trainer, News, NewsImages, Gallery, GalleryImages, MainPage
+from .models import Calendar, Category, Club, Rating, Trainer, News, NewsImages, Gallery, GalleryImages, MainPage, OfficialPartner, InformationalPartners, SponsorsAndPartners
 from parler.admin import TranslatableTabularInline, TranslatableAdmin, TranslatableInlineModelAdmin
 
 
@@ -40,9 +40,24 @@ class MainPageAdmin(admin.ModelAdmin):
     list_display = ('main_photo', 'whatsapp', 'facebook', 'instagram')
 
 
+class OfficialPartnerAdmin(admin.ModelAdmin):
+    list_display = ('images',)
+
+class SponsorsAndPartnersAdmin(admin.ModelAdmin):
+    list_display = ('images',)
+
+class InformationalPartnerAdmin(admin.ModelAdmin):
+    list_display = ('images',)
+
+
+
 admin.site.register(Calendar, CalendarAdmin)
 admin.site.register(Rating, RatingAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Club, ClubAdmin)
 admin.site.register(Trainer, TrainerAdmin)
 admin.site.register(MainPage, MainPageAdmin)
+admin.site.register(OfficialPartner, OfficialPartnerAdmin)
+admin.site.register(SponsorsAndPartners, SponsorsAndPartnersAdmin)
+admin.site.register(InformationalPartners, InformationalPartnerAdmin)
+

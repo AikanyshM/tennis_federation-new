@@ -137,3 +137,21 @@ class MainPageSerializer(serializers.ModelSerializer):
     class Meta:
         model = MainPage
         fields = "__all__"
+
+
+class OfficialPartnerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OfficialPartner
+        fields = "__all__"
+
+class SponsorsAndPartnersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SponsorsAndPartners
+        fields = "__all__"
+
+class InformationalPartnersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InformationalPartners
+        fields = "__all__"
+
+

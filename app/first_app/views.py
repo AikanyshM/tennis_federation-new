@@ -148,3 +148,24 @@ class MainPageViewSet(ModelViewSet):
     queryset = MainPage.objects.all()
     serializer_class = MainPageSerializer
     permission_classes = [IsStaffOrAny,]
+
+
+class OfficialPartnerViewSet(ModelViewSet):
+    queryset = OfficialPartner.objects.all()
+    serializer_class = OfficialPartnerSerializer
+    permission_classes = [IsStaffOrAny,]
+
+
+class SponsorsAndPartnersViewSet(ModelViewSet):
+    queryset = SponsorsAndPartners.objects.all()
+    serializer_class = SponsorsAndPartnersSerializer
+    permission_classes = [IsStaffOrAny,]
+
+
+class InformationalPartnersViewSet(ModelViewSet):
+    queryset = InformationalPartners.objects.all()
+    serializer_class = InformationalPartnersSerializer
+    permission_classes = [IsStaffOrAny,]
+
+    
+    
