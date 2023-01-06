@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-12 14:41+0600\n"
-"PO-Revision-Date: 2022-11-12 15:00+0600\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2023-01-06 19:27+0000\n"
+"PO-Revision-Date: 2023-01-06 19:01+0000\n"
+"Last-Translator:   <>\n"
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
@@ -17,174 +17,247 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2\n"
+"X-Translated-Using: django-rosetta 0.9.8\n"
 
 #: account/models.py:11
+#, fuzzy
+#| msgid "Мужской"
+msgid "мужской"
+msgstr "Male"
+
+#: account/models.py:11
+msgid "Мужской"
+msgstr "Male"
+
+#: account/models.py:12
+#, fuzzy
+#| msgid "Женский"
+msgid "женский"
+msgstr "Female"
+
+#: account/models.py:12
+msgid "Женский"
+msgstr "Female"
+
+#: account/models.py:16
 msgid "Игрок"
 msgstr "Player"
 
-#: account/models.py:12 first_app/models.py:52 account/models.py:13
+#: account/models.py:17 first_app/models.py:73
+msgid "Город"
+msgstr "City"
+
+#: account/models.py:18
 msgid "Дата рождения"
 msgstr "Birth date"
 
-#: account/models.py:15 first_app/models.py:54 first_app/models.py:71
-msgid "male"
-msgstr "male"
-
-#: account/models.py:16 first_app/models.py:55 first_app/models.py:72
-msgid "female"
-msgstr "female"
-
-#: account/models.py:18
+#: account/models.py:19
 msgid "Пол"
 msgstr "Gender"
 
-#: account/models.py:19
+#: account/models.py:20
 msgid "Номер телефона"
 msgstr "Phone number"
 
-#: account/models.py:23
+#: account/models.py:26
 msgid "Администратор"
 msgstr "Administrator"
 
-#: first_app/models.py:12
+#: account/serializers.py:21
+msgid "Пароли должны совпадать"
+msgstr "Passwords must match"
+
+#: account/serializers.py:108
+msgid "password"
+msgstr ""
+
+#: account/serializers.py:114
+msgid "old_password"
+msgstr ""
+
+#: account/serializers.py:121
+msgid "authorize"
+msgstr ""
+
+#: first_app/models.py:14
 msgid "Заголовок"
 msgstr "Title"
 
-#: first_app/models.py:13
+#: first_app/models.py:15
 msgid "Описание Федерации"
 msgstr "Federation description"
 
-#: first_app/models.py:23
-msgid "Название клуба"
-msgstr "Club name"
-
 #: first_app/models.py:24
-msgid "Описание клуба"
-msgstr "Club description"
-
-#: first_app/models.py:25
-msgid "Адрес клуба"
+#, fuzzy
+#| msgid "Адрес клуба"
+msgid "Ссылка на адрес клуба"
 msgstr "Club address"
 
-#: first_app/models.py:26 first_app/models.py:41
-msgid "Контакты"
-msgstr "Contacts"
-
-#: first_app/models.py:27
-msgid "Часы работы"
-msgstr "Working hours"
-
-#: first_app/models.py:28
+#: first_app/models.py:25
 msgid "Instagram"
 msgstr "Instagram"
 
-#: first_app/models.py:29
+#: first_app/models.py:26
 msgid "Facebook"
 msgstr "Facebook"
 
-#: first_app/models.py:30
+#: first_app/models.py:27
 msgid "Фото клуба"
 msgstr "Club photo"
 
-#: first_app/models.py:38
-msgid "ФИО тренера"
-msgstr "Coach full name"
+#: first_app/models.py:29
+msgid "Название клуба"
+msgstr "Club name"
 
-#: first_app/models.py:39
-msgid "Информация о тренере"
-msgstr "Coach Information"
+#: first_app/models.py:30
+msgid "Описание клуба"
+msgstr "Club description"
 
-#: first_app/models.py:40
-msgid "Место работы"
-msgstr "Work place"
+#: first_app/models.py:31
+msgid "Адрес клуба"
+msgstr "Club address"
+
+#: first_app/models.py:32 first_app/models.py:47
+msgid "Контакты"
+msgstr "Contacts"
+
+#: first_app/models.py:33
+msgid "Часы работы"
+msgstr "Working hours"
 
 #: first_app/models.py:42
 msgid "Фото тренера"
 msgstr "Coach photo"
 
-#: first_app/models.py:50
-msgid "Название турнира"
-msgstr "Tournament name"
+#: first_app/models.py:44
+msgid "ФИО тренера"
+msgstr "Coach full name"
 
-#: first_app/models.py:51
-msgid "Дата"
-msgstr "Date"
+#: first_app/models.py:45
+msgid "Информация о тренере"
+msgstr "Coach Information"
 
-#: first_app/models.py:58 first_app/models.py:75
+#: first_app/models.py:46
+msgid "Место работы"
+msgstr "Work place"
+
+#: first_app/models.py:56
+msgid "male"
+msgstr "male"
+
+#: first_app/models.py:56
+msgid "Male"
+msgstr ""
+
+#: first_app/models.py:57
+msgid "female"
+msgstr "female"
+
+#: first_app/models.py:57
+#, fuzzy
+#| msgid "female"
+msgid "Female"
+msgstr "female"
+
+#: first_app/models.py:61
+#, fuzzy
+#| msgid "Under 14"
+msgid "under_14"
+msgstr "Under 14"
+
+#: first_app/models.py:61
 msgid "Under 14"
 msgstr "Under 14"
 
-#: first_app/models.py:59 first_app/models.py:76
+#: first_app/models.py:62
 msgid "14 and older"
 msgstr "14 and older"
 
-#: first_app/models.py:61 first_app/models.py:78
+#: first_app/models.py:66
+#, fuzzy
+#| msgid "Название турнира"
+msgid "Дата начала турнира"
+msgstr "Tournament name"
+
+#: first_app/models.py:67
+#, fuzzy
+#| msgid "Название турнира"
+msgid "Дата окончания турнира"
+msgstr "Tournament name"
+
+#: first_app/models.py:68 first_app/models.py:85
 msgid "Категория пол"
 msgstr "Gender category"
 
-#: first_app/models.py:62 first_app/models.py:79
+#: first_app/models.py:69 first_app/models.py:86
 msgid "Категория возраст"
 msgstr "Age category"
 
-#: first_app/models.py:66
-msgid "Место"
-msgstr "Place"
+#: first_app/models.py:72
+msgid "Название турнира"
+msgstr "Tournament name"
 
-#: first_app/models.py:67
-msgid "ФИО"
-msgstr "Full name"
-
-#: first_app/models.py:68
+#: first_app/models.py:82
 msgid "Год рождения"
 msgstr "Birth year"
 
-#: first_app/models.py:69
+#: first_app/models.py:83
 msgid "Кол-во турниров"
 msgstr "Number of tournaments"
 
-#: first_app/models.py:80
+#: first_app/models.py:84
 msgid "Очки"
 msgstr "Points"
 
-#: first_app/models.py:84
-msgid "Краткое название"
-msgstr "Short name"
+#: first_app/models.py:89
+msgid "ФИО"
+msgstr "Full name"
 
-#: first_app/models.py:85 first_app/models.py:105
+#: first_app/models.py:99 first_app/models.py:122
 msgid "Дата создания"
 msgstr "Creation date"
 
-#: first_app/models.py:86
-msgid "Описание новости"
-msgstr "News description"
-
-#: first_app/models.py:87
-msgid "Источник"
-msgstr "Source"
-
-#: first_app/models.py:88 first_app/models.py:104 first_app/models.py:117
+#: first_app/models.py:100 first_app/models.py:121 first_app/models.py:141
 msgid "Главное фото"
 msgstr "Main photo"
 
-#: first_app/models.py:97 first_app/models.py:113
+#: first_app/models.py:102
+msgid "Краткое название"
+msgstr "Short name"
+
+#: first_app/models.py:103
+msgid "Описание новости"
+msgstr "News description"
+
+#: first_app/models.py:104
+msgid "Источник"
+msgstr "Source"
+
+#: first_app/models.py:114 first_app/models.py:134
 msgid "Фотографии"
 msgstr "Photos"
 
-#: first_app/models.py:106
-msgid "Заголовок новости"
-msgstr "News title"
+#: first_app/models.py:124
+#, fuzzy
+#| msgid "Название клуба"
+msgid "Название галерии"
+msgstr "Club name"
 
-#: tennis/settings.py:141
+#: tennis/settings.py:146
 msgid "English"
 msgstr "English"
 
-#: tennis/settings.py:142
+#: tennis/settings.py:147
 msgid "Russian"
 msgstr "Russian"
 
-#: tennis/settings.py:143
+#: tennis/settings.py:148
 msgid "Kirghiz"
 msgstr "Kirghiz"
+
+#: tennis/urls.py:27
+msgid "admin/"
+msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/contrib/messages/apps.py:7
 msgid "Messages"
@@ -1376,3 +1449,12 @@ msgstr ""
 #: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:249
 msgid "Connect, get help, or contribute"
 msgstr ""
+
+#~ msgid "Дата"
+#~ msgstr "Date"
+
+#~ msgid "Место"
+#~ msgstr "Place"
+
+#~ msgid "Заголовок новости"
+#~ msgstr "News title"

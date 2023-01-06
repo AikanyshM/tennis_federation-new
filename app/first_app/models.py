@@ -12,8 +12,6 @@ class Category(TranslatableModel):
         title = models.CharField(max_length=100, verbose_name = _("Заголовок")),
         text = models.TextField(verbose_name = _('Описание Федерации'))
     )
-    # def get_absolute_url(self):
-    #     return reverse('place-detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         title = self.safe_translation_getter('title', any_language=True)
@@ -144,8 +142,6 @@ class MainPage(models.Model):
     instagram = models.URLField()
 
 
-    # def __str__(self):
-    #     return self.main_photo
 
 class OfficialPartner(models.Model):
     # title = models.CharField(max_length=100, verbose_name=_('Официальный партнер Федерации'))
