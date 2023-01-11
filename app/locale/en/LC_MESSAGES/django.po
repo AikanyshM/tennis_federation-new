@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-06 19:27+0000\n"
-"PO-Revision-Date: 2023-01-06 19:01+0000\n"
+"POT-Creation-Date: 2023-01-06 21:39+0000\n"
+"PO-Revision-Date: 2023-01-06 21:41+0000\n"
 "Last-Translator:   <>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -43,7 +43,7 @@ msgstr "Female"
 msgid "Игрок"
 msgstr "Player"
 
-#: account/models.py:17 first_app/models.py:73
+#: account/models.py:17 first_app/models.py:71
 msgid "Город"
 msgstr "City"
 
@@ -79,169 +79,174 @@ msgstr ""
 msgid "authorize"
 msgstr ""
 
-#: first_app/models.py:14
+#: first_app/models.py:12
 msgid "Заголовок"
 msgstr "Title"
 
-#: first_app/models.py:15
+#: first_app/models.py:13
 msgid "Описание Федерации"
 msgstr "Federation description"
 
-#: first_app/models.py:24
-#, fuzzy
-#| msgid "Адрес клуба"
+#: first_app/models.py:22
 msgid "Ссылка на адрес клуба"
-msgstr "Club address"
+msgstr "Link to club address"
 
-#: first_app/models.py:25
+#: first_app/models.py:23
 msgid "Instagram"
 msgstr "Instagram"
 
-#: first_app/models.py:26
+#: first_app/models.py:24
 msgid "Facebook"
 msgstr "Facebook"
 
-#: first_app/models.py:27
+#: first_app/models.py:25
 msgid "Фото клуба"
 msgstr "Club photo"
 
-#: first_app/models.py:29
+#: first_app/models.py:27
 msgid "Название клуба"
 msgstr "Club name"
 
-#: first_app/models.py:30
+#: first_app/models.py:28
 msgid "Описание клуба"
 msgstr "Club description"
 
-#: first_app/models.py:31
+#: first_app/models.py:29
 msgid "Адрес клуба"
 msgstr "Club address"
 
-#: first_app/models.py:32 first_app/models.py:47
+#: first_app/models.py:30 first_app/models.py:45
 msgid "Контакты"
 msgstr "Contacts"
 
-#: first_app/models.py:33
+#: first_app/models.py:31
 msgid "Часы работы"
 msgstr "Working hours"
 
-#: first_app/models.py:42
+#: first_app/models.py:40
 msgid "Фото тренера"
 msgstr "Coach photo"
 
-#: first_app/models.py:44
+#: first_app/models.py:42
 msgid "ФИО тренера"
 msgstr "Coach full name"
 
-#: first_app/models.py:45
+#: first_app/models.py:43
 msgid "Информация о тренере"
 msgstr "Coach Information"
 
-#: first_app/models.py:46
+#: first_app/models.py:44
 msgid "Место работы"
 msgstr "Work place"
 
-#: first_app/models.py:56
+#: first_app/models.py:54
 msgid "male"
 msgstr "male"
 
-#: first_app/models.py:56
+#: first_app/models.py:54
 msgid "Male"
 msgstr ""
 
-#: first_app/models.py:57
+#: first_app/models.py:55
 msgid "female"
 msgstr "female"
 
-#: first_app/models.py:57
+#: first_app/models.py:55
 #, fuzzy
 #| msgid "female"
 msgid "Female"
 msgstr "female"
 
-#: first_app/models.py:61
+#: first_app/models.py:59
 #, fuzzy
 #| msgid "Under 14"
 msgid "under_14"
 msgstr "Under 14"
 
-#: first_app/models.py:61
+#: first_app/models.py:59
 msgid "Under 14"
 msgstr "Under 14"
 
-#: first_app/models.py:62
+#: first_app/models.py:60
 msgid "14 and older"
 msgstr "14 and older"
 
-#: first_app/models.py:66
-#, fuzzy
-#| msgid "Название турнира"
+#: first_app/models.py:64
 msgid "Дата начала турнира"
-msgstr "Tournament name"
+msgstr "Tournament start date"
 
-#: first_app/models.py:67
-#, fuzzy
-#| msgid "Название турнира"
+#: first_app/models.py:65
 msgid "Дата окончания турнира"
-msgstr "Tournament name"
+msgstr "Tournament end date"
 
-#: first_app/models.py:68 first_app/models.py:85
+#: first_app/models.py:66 first_app/models.py:83
 msgid "Категория пол"
 msgstr "Gender category"
 
-#: first_app/models.py:69 first_app/models.py:86
+#: first_app/models.py:67 first_app/models.py:84
 msgid "Категория возраст"
 msgstr "Age category"
 
-#: first_app/models.py:72
+#: first_app/models.py:70
 msgid "Название турнира"
 msgstr "Tournament name"
 
-#: first_app/models.py:82
+#: first_app/models.py:80
 msgid "Год рождения"
 msgstr "Birth year"
 
-#: first_app/models.py:83
+#: first_app/models.py:81
 msgid "Кол-во турниров"
 msgstr "Number of tournaments"
 
-#: first_app/models.py:84
+#: first_app/models.py:82
 msgid "Очки"
 msgstr "Points"
 
-#: first_app/models.py:89
+#: first_app/models.py:87
 msgid "ФИО"
 msgstr "Full name"
 
-#: first_app/models.py:99 first_app/models.py:122
+#: first_app/models.py:97 first_app/models.py:120
 msgid "Дата создания"
 msgstr "Creation date"
 
-#: first_app/models.py:100 first_app/models.py:121 first_app/models.py:141
+#: first_app/models.py:98 first_app/models.py:119 first_app/models.py:139
 msgid "Главное фото"
 msgstr "Main photo"
 
-#: first_app/models.py:102
+#: first_app/models.py:100
 msgid "Краткое название"
 msgstr "Short name"
 
-#: first_app/models.py:103
+#: first_app/models.py:101
 msgid "Описание новости"
 msgstr "News description"
 
-#: first_app/models.py:104
+#: first_app/models.py:102
 msgid "Источник"
 msgstr "Source"
 
-#: first_app/models.py:114 first_app/models.py:134
+#: first_app/models.py:112 first_app/models.py:132
 msgid "Фотографии"
 msgstr "Photos"
 
-#: first_app/models.py:124
-#, fuzzy
-#| msgid "Название клуба"
+#: first_app/models.py:122
 msgid "Название галерии"
-msgstr "Club name"
+msgstr "Gallery name"
+
+#: first_app/models.py:148
+msgid "Фото официальных партнеров Федерации"
+msgstr "Federation's official partner photos"
+
+#: first_app/models.py:154
+#| msgid "Описание Федерации"
+msgid "Фото спонсоров и партнеров Федерации"
+msgstr "Federation sponsors and partners' photos"
+
+#: first_app/models.py:160
+msgid "Фото информационных партнеров Федерации"
+msgstr "Federation's information partners photo"
 
 #: tennis/settings.py:146
 msgid "English"
@@ -318,8 +323,8 @@ msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/core/validators.py:266
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
-"hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
+" hyphens."
 msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/core/validators.py:275
@@ -504,15 +509,15 @@ msgstr ""
 #: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1288
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
-"uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
 msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1292
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
-"[TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
 msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1296
@@ -531,8 +536,8 @@ msgstr ""
 #: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1585
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
-"uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
 msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1588
@@ -691,7 +696,8 @@ msgid "Many-to-many relationship"
 msgstr ""
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the label
+#. characters will prevent the default label_suffix to be appended to the
+#. label
 #: venv/lib/python3.10/site-packages/django/forms/boundfield.py:150
 msgid ":?.!"
 msgstr ""
@@ -741,7 +747,8 @@ msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/forms/fields.py:542
 #, python-format
-msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid ""
+"Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -848,7 +855,8 @@ msgid "The inline value did not match the parent instance."
 msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/forms/models.py:1193
-msgid "Select a valid choice. That choice is not one of the available choices."
+msgid ""
+"Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/forms/models.py:1311
@@ -1308,11 +1316,11 @@ msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/views/csrf.py:124
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
-"including the “Referrer-Policy: no-referrer” header, please remove them. The "
-"CSRF protection requires the “Referer” header to do strict referer checking. "
-"If you’re concerned about privacy, use alternatives like <a rel=\"noreferrer"
-"\" …> for links to third-party sites."
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
+" including the “Referrer-Policy: no-referrer” header, please remove them. "
+"The CSRF protection requires the “Referer” header to do strict referer "
+"checking. If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/views/csrf.py:132
@@ -1363,8 +1371,8 @@ msgstr ""
 #: venv/lib/python3.10/site-packages/django/views/generic/dates.py:594
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because %(class_name)s."
-"allow_future is False."
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
 msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/views/generic/dates.py:628
@@ -1420,10 +1428,10 @@ msgstr ""
 #: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:222
 #, python-format
 msgid ""
-"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
-"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
-"\">DEBUG=True</a> is in your settings file and you have not configured any "
-"URLs."
+"You are seeing this page because <a "
+"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
+"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
+"and you have not configured any URLs."
 msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:230

@@ -35,14 +35,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["id", "email", "first_name", "last_name"]
+        fields = ["id", "first_name", "last_name"]
         read_only_fields = ['username',]
-
-    # def validate_email(self, value):
-    #         user = self.context['request'].user
-    #         if User.objects.exclude(pk=user.pk).filter(email=value).exists():
-    #             raise serializers.ValidationError(_({"email": "Этот email уже используется"}))
-    #         return value
 
 
 class PlayerSerializer(serializers.ModelSerializer):
@@ -65,9 +59,8 @@ class PlayerCreateSerializer(UserCreateSerializer):
 
     class Meta:
         model = User
-        fields = ['player', 'username', 'password', 'password2', 'email', 'first_name', 'last_name']
+        fields = ['player', 'username', 'password', 'password2', 'first_name', 'last_name']
         extra_kwargs = {
-            'email': {'required': True},
             'first_name': {'required': True},
             'last_name': {'required': True}
         }
@@ -75,7 +68,6 @@ class PlayerCreateSerializer(UserCreateSerializer):
 
     def save(self):
         user = User(username=self.validated_data['username'],
-                    email=self.validated_data['email'],
                     first_name=self.validated_data['first_name'],
                     last_name=self.validated_data['last_name'],
                     is_staff=self.validated_data['is_staff'],
@@ -84,7 +76,8 @@ class PlayerCreateSerializer(UserCreateSerializer):
         user.set_password(self.validated_data['password'])
         user.save()
         player = Player(
-            user=user, 
+            user=user,
+            email=self.validated_data['player']['email'],
             city=self.validated_data['player']['city'],
             birthdate=self.validated_data['player']['birthdate'],
             gender=self.validated_data['player']['gender'],
