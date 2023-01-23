@@ -33,10 +33,10 @@ class ClubModelViewSet(ModelViewSet):
     serializer_class = ClubSerializer
     permission_classes = [IsStaffOrAny, ]
 
-    def get_serializer_context(self, request):
-        context = super().get_serializer_context()
-        context.update({"request": request})
-        return context
+    # def get_serializer_context(self, request):
+    #     context = super().get_serializer_context()
+    #     context.update({"request": request})
+    #     return context
 
 
 #About trainers
