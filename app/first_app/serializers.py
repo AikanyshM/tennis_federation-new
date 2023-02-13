@@ -8,7 +8,7 @@ class CategorySerializer(TranslatableModelSerializer):
 
     class Meta:
         model = Category
-        fields = ['id', 'translations', ]
+        fields = ['id', 'translations', 'images']
         read_only_fields = ['id', ]
 
 
