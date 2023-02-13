@@ -8,6 +8,7 @@ User = get_user_model()
 
 
 class Category(TranslatableModel):
+    images = models.ImageField(verbose_name = _("Фото Федерации"))
     translations = TranslatedFields(
         title = models.CharField(max_length=100, verbose_name = _("Заголовок")),
         text = models.TextField(verbose_name = _('Описание Федерации'))
@@ -43,6 +44,7 @@ class Trainer(TranslatableModel):
         description = models.TextField(verbose_name = _("Информация о тренере")),
         address =   models.CharField(max_length=100, verbose_name = _("Место работы")),
         contacts = models.CharField(max_length=100, verbose_name =  _("Контакты")),
+        category = models.CharField(max_length=100, verbose_name = _("Категория")),
     )
 
     def __str__(self):
