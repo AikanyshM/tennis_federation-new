@@ -16,6 +16,7 @@ import json
 from django.http import JsonResponse
 from django.core import serializers
 from rest_framework.response import Response
+import datetime
 
 
 #About Federations
@@ -33,11 +34,6 @@ class ClubModelViewSet(ModelViewSet):
     serializer_class = ClubSerializer
     permission_classes = [IsStaffOrAny, ]
 
-    # def get_serializer_context(self, request):
-    #     context = super().get_serializer_context()
-    #     context.update({"request": request})
-    #     return context
-
 
 #About trainers
 
@@ -50,13 +46,11 @@ class TrainerModelViewSet(ModelViewSet):
 class CalendarFilter(FilterSet):
     start_month = NumberFilter(field_name='start_date', lookup_expr='month', distinct=True)
     start_year = NumberFilter(field_name='start_date', lookup_expr='year', distinct=True)
-    category_gender = ChoiceFilter(choices=Gender.choices, field_name='category_gender', distinct=True)
-    category_age = ChoiceFilter(choices=Age.choices, field_name='category_age', distinct=True)
 
 
     class Meta:
         model = Calendar
-        fields = ['category_gender', 'category_age', 'start_month', 'start_year',]
+        fields = ['start_month', 'start_year',]
 
 
 class CalendarViewSet(ModelViewSet):
@@ -67,6 +61,11 @@ class CalendarViewSet(ModelViewSet):
     search_fields = ('translations__name',)
     ordering = ['start_date']
     permission_classes = [IsStaffOrAny,]
+
+    def get_queryset(self):
+        queryset = super(CalendarViewSet, self).get_queryset()
+        today = datetime.date.today()
+        return queryset.filter(Q(start_date__month=today.month, start_date__year=today.year) | Q(end_date__month=today.month, end_date__year=today.year))
 
 
 class RatingFilter(FilterSet):
@@ -85,6 +84,11 @@ class RatingViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_class = RatingFilter
     permission_classes = [IsStaffOrAny,]
+
+    def list(self, request, *args, **kwargs):
+        response = super(RatingViewSet, self).list(request, args, kwargs)
+        response.data = sorted(response.data, key=lambda k: (k['rating'],))
+        return response
 
 
 class NewsViewSet(ModelViewSet):
