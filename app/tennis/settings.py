@@ -198,4 +198,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
     "http://test.cm.kg",
+    "http://ftkr.kg",
+    "176.126.164.165",
+
 ]
