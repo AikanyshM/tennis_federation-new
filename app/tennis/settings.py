@@ -200,6 +200,5 @@ CORS_ALLOWED_ORIGINS = [
     "http://test.cm.kg",
     "http://ftkr.kg",
     "http://176.126.164.165",
-    #"ftkr.kg",
 
 ]
