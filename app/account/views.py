@@ -34,6 +34,7 @@ class RegisterView(generics.CreateAPIView):
 class AdminUserCreateAPIView(CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserCreateSerializer
+    permission_classes = (IsAdminUser, )
 
     def perform_create(self, serializer):
         serializer.validated_data['is_staff'] = True
