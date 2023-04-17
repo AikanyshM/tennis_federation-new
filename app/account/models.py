@@ -14,7 +14,7 @@ class Gender(models.TextChoices):
 
 class Player(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name= _('Игрок'))
-    email = models.EmailField(unique=True, blank=False)
+    email = models.EmailField(unique=True, error_messages= {'unique': _("Пользователь с таким электронным адресом уже существует")})
     city = models.CharField(max_length=50, verbose_name= _('Город'))
     birthdate = models.DateField(verbose_name= _('Дата рождения'))  
     gender = models.CharField(choices=Gender.choices,max_length=100, verbose_name=_('Пол'))
