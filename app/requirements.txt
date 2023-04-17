@@ -17,4 +17,4 @@ sqlparse==0.4.2
 whitenoise==6.0.0
 django-parler-rest==2.2
 drf-writable-nested
-gettext==0.19.8.1-10build1
+gettext
