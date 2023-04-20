@@ -5,12 +5,16 @@ from parler.admin import TranslatableTabularInline, TranslatableAdmin, Translata
 
 class CategoryAdmin(TranslatableAdmin):
     list_display = ('title', 'text')
+    list_editable = ['title', 'text']
 
 class ClubAdmin(TranslatableAdmin):
     list_display = ('name', 'description', 'address', 'contacts', 'working_hours', 'images')
-    
+    list_editable = ['name', 'description', 'address', 'contacts', 'working_hours', 'images']
+
 class TrainerAdmin(TranslatableAdmin):
     list_display = ('name', 'description', 'address', 'contacts', 'images')
+    list_editable = ['name', 'description', 'address', 'contacts', 'images']
+
 
 class GalleryImagesAdminInline(admin.TabularInline):
     extra = 1
@@ -23,10 +27,14 @@ class GalleryAdmin(TranslatableAdmin):
 
 class CalendarAdmin(TranslatableAdmin):
     list_display = ('name', 'start_date', 'end_date', 'location')
+    list_editable = ['name', 'start_date', 'end_date', 'location']
 
 class RatingAdmin(TranslatableAdmin):
     list_display = ('full_name', 'points', 'birth_date', 'category_gender', 'number_of_tournaments',
     'category_age')
+    list_editable = ['full_name', 'points', 'birth_date', 'category_gender', 'number_of_tournaments',
+    'category_age']
+
 
 class NewsImageAdminInline(admin.TabularInline):
     extra = 1
