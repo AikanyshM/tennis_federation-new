@@ -38,6 +38,8 @@ class NewsAdmin(TranslatableAdmin):
 
 class MainPageAdmin(admin.ModelAdmin):
     list_display = ('main_photo', 'whatsapp', 'facebook', 'instagram')
+    list_display_links = ["whatsapp", "facebook", "instagram"]
+
 
 
 class OfficialPartnerAdmin(admin.ModelAdmin):
