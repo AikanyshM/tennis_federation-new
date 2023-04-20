@@ -5,15 +5,15 @@ from parler.admin import TranslatableTabularInline, TranslatableAdmin, Translata
 
 class CategoryAdmin(TranslatableAdmin):
     list_display = ('title', 'text')
-    list_editable = ['title', 'text']
+    list_display_links = ['title', 'text']
 
 class ClubAdmin(TranslatableAdmin):
     list_display = ('name', 'description', 'address', 'contacts', 'working_hours', 'images')
-    list_editable = ['name', 'description', 'address', 'contacts', 'working_hours', 'images']
+    list_display_links  = ['name', 'description', 'address', 'contacts', 'working_hours', 'images']
 
 class TrainerAdmin(TranslatableAdmin):
     list_display = ('name', 'description', 'address', 'contacts', 'images')
-    list_editable = ['name', 'description', 'address', 'contacts', 'images']
+    list_display_links = ['name', 'description', 'address', 'contacts', 'images']
 
 
 class GalleryImagesAdminInline(admin.TabularInline):
@@ -26,13 +26,13 @@ class GalleryAdmin(TranslatableAdmin):
     inlines = [GalleryImagesAdminInline, ]
 
 class CalendarAdmin(TranslatableAdmin):
-    list_display = ('name', 'start_date', 'end_date', 'location')
-    list_editable = ['name', 'start_date', 'end_date', 'location']
+    list_display = ('name', 'start_date', 'end_date', 'location', 'category_gender', 'category_age')
+    list_editable = ['start_date', 'end_date', 'location', 'category_gender', 'category_age']
 
 class RatingAdmin(TranslatableAdmin):
     list_display = ('full_name', 'points', 'birth_date', 'category_gender', 'number_of_tournaments',
     'category_age')
-    list_editable = ['full_name', 'points', 'birth_date', 'category_gender', 'number_of_tournaments',
+    list_editable = ['points', 'birth_date', 'category_gender', 'number_of_tournaments',
     'category_age']
 
 
