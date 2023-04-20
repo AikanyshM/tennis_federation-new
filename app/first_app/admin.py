@@ -27,12 +27,12 @@ class GalleryAdmin(TranslatableAdmin):
 
 class CalendarAdmin(TranslatableAdmin):
     list_display = ('name', 'start_date', 'end_date', 'location', 'category_gender', 'category_age')
-    list_editable = ['start_date', 'end_date', 'location', 'category_gender', 'category_age']
+    list_display_links = ['name','start_date', 'end_date', 'location', 'category_gender', 'category_age']
 
 class RatingAdmin(TranslatableAdmin):
     list_display = ('full_name', 'points', 'birth_date', 'category_gender', 'number_of_tournaments',
     'category_age')
-    list_editable = ['points', 'birth_date', 'category_gender', 'number_of_tournaments',
+    list_display_links = ['full_name','points', 'birth_date', 'category_gender', 'number_of_tournaments',
     'category_age']
 
 
