@@ -52,6 +52,12 @@ class CalendarFilter(FilterSet):
         model = Calendar
         fields = ['start_month', 'start_year',]
 
+    def __init__(self, *args, **kwargs):
+        super(CalendarFilter, self).__init__(*args, **kwargs)
+        today = datetime.date.today()
+        self.form.initial['start_month'] = today.month
+        self.form.initial['start_year'] = today.year
+
 
 class CalendarViewSet(ModelViewSet):
     queryset = Calendar.objects.all()
@@ -62,10 +68,10 @@ class CalendarViewSet(ModelViewSet):
     ordering = ['start_date']
     permission_classes = [IsStaffOrAny,]
 
-    def get_queryset(self):
-        queryset = super(CalendarViewSet, self).get_queryset()
-        today = datetime.date.today()
-        return queryset.filter(Q(start_date__month=today.month, start_date__year=today.year) | Q(end_date__month=today.month, end_date__year=today.year))
+    # def get_queryset(self):
+    #     queryset = super(CalendarViewSet, self).get_queryset()
+    #     today = datetime.date.today()
+    #     return queryset.filter(Q(start_date__month=today.month, start_date__year=today.year) | Q(end_date__month=today.month, end_date__year=today.year))
 
 
 class RatingFilter(FilterSet):
