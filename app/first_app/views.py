@@ -58,6 +58,8 @@ class CalendarFilter(FilterSet):
         self.form.initial['start_month'] = today.month
         self.form.initial['start_year'] = today.year
 
+        #final
+
 
 class CalendarViewSet(ModelViewSet):
     queryset = Calendar.objects.all()
