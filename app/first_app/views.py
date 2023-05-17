@@ -46,17 +46,20 @@ class TrainerModelViewSet(ModelViewSet):
 class CalendarFilter(FilterSet):
     start_month = NumberFilter(field_name='start_date', lookup_expr='month', distinct=True)
     start_year = NumberFilter(field_name='start_date', lookup_expr='year', distinct=True)
-
+    end_month = NumberFilter(field_name='end_date', lookup_expr='month', distinct=True)
+    end_year = NumberFilter(field_name='end_date', lookup_expr='year', distinct=True)
     class Meta:
         model = Calendar
-        fields = ['start_month', 'start_year',]
+        fields = ['start_month', 'start_year', 'end_month', 'end_year']
 
     def __init__(self, *args, **kwargs):
         super(CalendarFilter, self).__init__(*args, **kwargs)
         today = datetime.date.today()
         self.form.initial['start_month'] = today.month
         self.form.initial['start_year'] = today.year
-
+        self.form.initial['end_month'] = today.month
+        self.form.initial['end_year'] = today.year
+        
 class CalendarViewSet(ModelViewSet):
     queryset = Calendar.objects.all()
     serializer_class = CalendarSerializer
