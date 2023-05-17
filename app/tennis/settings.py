@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 from datetime import timedelta
+from django.utils.translation import gettext_lazy as _
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,14 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", 'my_default_secret_key')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", default=0)
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
-
+ALLOWED_HOSTS = ['127.0.0.1',] if not os.environ.get("ALLOWED_HOSTS") else os.environ.get("ALLOWED_HOSTS").split(",")
 
 # Application definition
 
@@ -41,15 +41,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
+    'drf_yasg',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt.token_blacklist',
     'django_filters',
     'rest_framework',
     'first_app',
     'account',
+    'rosetta', 
+    'parler', 
+
     ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',    
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -75,6 +84,13 @@ TEMPLATES = [
     },
 ]
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=10),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False
+}
+
 WSGI_APPLICATION = 'tennis.wsgi.application'
 
 REST_FRAMEWORK = {
@@ -83,11 +99,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-SIMPLE_JWT = {
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': False
-}
+
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -100,7 +112,7 @@ SIMPLE_JWT = {
 # }       
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("SQL_ENGINE"),
+        "ENGINE": 'django.db.backends.postgresql',
         "NAME": os.environ.get("SQL_DATABASE"),
         "USER": os.environ.get("SQL_USER"),
         "PASSWORD": os.environ.get("SQL_PASSWORD"),
@@ -108,6 +120,16 @@ DATABASES = {
         "PORT": os.environ.get("SQL_PORT"),
     }
 }
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('ru', _('Russian')),
+    ('ky', _('Kirghiz')),
+]
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR / 'locale/'),
+]
 
 
 # Password validation
@@ -134,6 +156,18 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'en',}, # English
+        {'code': 'ru',}, # Russian
+        {'code': 'ky',}, # Kirghiz
+    ),
+    'default': {
+        'fallbacks': ['en'],
+        'hide_untranslated': False,
+    }
+}
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -156,4 +190,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'account.User'
-LOGIN_REDIRECT_URL = 'auth/<int:pk>/'
+LOGIN_URL='/auth/login/'
+LOGIN_REDIRECT_URL = '/auth/profile'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
+    "http://test.cm.kg",
+    "https://ftkr.kg",
+    "http://176.126.164.165",
+    "https://www.ftkr.kg",
+]
