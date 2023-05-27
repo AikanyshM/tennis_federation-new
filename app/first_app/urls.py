@@ -21,6 +21,9 @@ router.register(r'informational_partners', InformationalPartnersViewSet, basenam
 urlpatterns = [
     path('', include(router.urls)),
     path('search/', search, name='search'),
+    path('current_calendar/', CurrentCalendar.as_view(), name='current_calendar'),
+    path('future_calendar/', FutureCalendar.as_view(), name='future_calendar'),
+    path('past_calendar/', PastCalendar.as_view(), name='past_calendar')
 ]
 
 

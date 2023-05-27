@@ -37,7 +37,7 @@ class CalendarSerializer(TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=Calendar)    
     class Meta:
         model = Calendar
-        fields = ['id', 'translations', 'start_date', 'end_date', 'category_gender', 'category_age', ]
+        fields = ['id', 'translations', 'start_date', 'end_date', 'category_gender', 'category_age', 'regulations']
         read_only_fields = ['id', ]
 
 class RatingSerializer(TranslatableModelSerializer):
