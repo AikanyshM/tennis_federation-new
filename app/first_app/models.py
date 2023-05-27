@@ -63,7 +63,7 @@ class Calendar(TranslatableModel):
     end_date = models.DateField(verbose_name= _('Дата окончания турнира'))
     category_gender = models.CharField(choices=Gender.choices,max_length=100, verbose_name= _('Категория пол'))
     category_age = models.CharField(choices=Age.choices, max_length=100, verbose_name= _('Категория возраст'))
-
+    regulations = models.URLField(verbose_name=_('Подробнее'))
     translations = TranslatedFields(
         name = models.CharField(max_length=100, verbose_name= _('Название турнира')),
         location = models.CharField(max_length=100, verbose_name= _('Город')),

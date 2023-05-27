@@ -173,3 +173,35 @@ class InformationalPartnersViewSet(ModelViewSet):
     queryset = InformationalPartners.objects.all()
     serializer_class = InformationalPartnersSerializer
     permission_classes = [IsStaffOrAny,]
+
+
+class CurrentCalendar(ListAPIView):
+    queryset = Calendar.objects.all()
+    serializer_class = CalendarSerializer
+    permission_classes = [AllowAny,]
+
+    def get_queryset(self):
+        today = datetime.date.today()
+        return Calendar.objects.filter(start_date__lte=today, end_date__gte=today)
+
+
+class FutureCalendar(ListAPIView):
+    queryset = Calendar.objects.all()
+    serializer_class = CalendarSerializer
+    permission_classes = [AllowAny,]
+
+    def get_queryset(self):
+        today = datetime.date.today()
+        return Calendar.objects.filter(Q(start_date__year__gt=today.year) | 
+                                       Q(start_date__year=today.year, start_date__month__gt=today.month))
+    
+
+class PastCalendar(ListAPIView):
+    queryset = Calendar.objects.all()
+    serializer_class = CalendarSerializer
+    permission_classes = [AllowAny,]
+
+    def get_queryset(self):
+        today = datetime.date.today()
+        return Calendar.objects.filter(Q(end_date__year__lt=today.year) | 
+                                       Q(end_date__year=today.year, end_date__month__lt=today.month))
