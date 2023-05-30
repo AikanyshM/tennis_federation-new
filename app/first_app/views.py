@@ -44,21 +44,29 @@ class TrainerModelViewSet(ModelViewSet):
 
 
 class CalendarFilter(FilterSet):
-    start_month = NumberFilter(field_name='start_date', lookup_expr='month', distinct=True)
-    start_year = NumberFilter(field_name='start_date', lookup_expr='year', distinct=True)
-    end_month = NumberFilter(field_name='end_date', lookup_expr='month', distinct=True)
-    end_year = NumberFilter(field_name='end_date', lookup_expr='year', distinct=True)
+    select_month = NumberFilter(method='filter_by_month', label='Месяц')
+    select_year = NumberFilter(method='filter_by_year', label='Год')
+
+    def filter_by_month(self, queryset, name, value):
+        return queryset.filter(
+            Q(start_date__month=value) | Q(end_date__month=value)
+        )
+
+    def filter_by_year(self, queryset, name, value):
+        return queryset.filter(
+            Q(start_date__year=value) | Q(end_date__year=value)
+        )
+
     class Meta:
         model = Calendar
-        fields = ['start_month', 'start_year', 'end_month', 'end_year']
+        fields = ['select_month', 'select_year']
+
 
     def __init__(self, *args, **kwargs):
         super(CalendarFilter, self).__init__(*args, **kwargs)
         today = datetime.date.today()
-        self.form.initial['start_month'] = today.month
-        self.form.initial['start_year'] = today.year
-        self.form.initial['end_month'] = today.month
-        self.form.initial['end_year'] = today.year
+        self.form.initial['select_month'] = today.month
+        self.form.initial['select_year'] = today.year
         
 class CalendarViewSet(ModelViewSet):
     queryset = Calendar.objects.all()
