@@ -48,13 +48,11 @@ class CalendarFilter(FilterSet):
     select_year = NumberFilter(method='filter_by_year', label='Год')
 
     def filter_by_month(self, queryset, name, value):
-        return queryset.filter(
-            Q(start_date__month=value) | Q(end_date__month=value)
-        )
+        return queryset.filter(start_date__month__lte=value, end_date__month__gte=value)
 
     def filter_by_year(self, queryset, name, value):
         return queryset.filter(
-            Q(start_date__year=value) | Q(end_date__year=value)
+            start_date__year__lte=value, end_date__year__gte=value
         )
 
     class Meta:
